@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+	<!-- 메인 -->
+	<servlet>
+		<servlet-name>main</servlet-name>
+		<jsp-file>/index.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>main</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- 영웅  -->
+	<servlet>
+		<servlet-name>heroDetail</servlet-name>
+		<jsp-file>/heroDetail.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>heroDetail</servlet-name>
+		<url-pattern>/hero/detail</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 영웅수정  -->	
+	<servlet>
+		<servlet-name>heroUpdate</servlet-name>
+		<jsp-file>/heroUpdate.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>heroAdd</servlet-name>
+		<jsp-file>/heroAdd.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>heroAddProcess</servlet-name>
+		<jsp-file>/heroes/addProcess.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>heroDeleteProcess</servlet-name>
+		<jsp-file>/heroes/deleteProcess.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>heroUpdate</servlet-name>
+		<url-pattern>/hero/update</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>heroAdd</servlet-name>
+		<url-pattern>/hero/add</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>heroAddProcess</servlet-name>
+		<url-pattern>/hero/doAdd</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>heroDeleteProcess</servlet-name>
+		<url-pattern>/hero/doDelete</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- 로그인  -->
+	<servlet>
+		<servlet-name>login</servlet-name>
+		<jsp-file>/login.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>loginProcess</servlet-name>
+		<jsp-file>/login/process.jsp</jsp-file>
+	</servlet>
+	
+	
+	<servlet-mapping>
+		<servlet-name>login</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>loginProcess</servlet-name>
+		<url-pattern>/login/do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- 던전  -->	
+	<servlet>
+		<servlet-name>dungeonDetail</servlet-name>
+		<jsp-file>/dungeonDetail.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>dungeonAdd</servlet-name>
+		<jsp-file>/dungeonAdd.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>dungeonAddProcess</servlet-name>
+		<jsp-file>/dungeons/addProcess.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>dungeonDeleteProcess</servlet-name>
+		<jsp-file>/dungeons/deleteProcess.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>dungeonDetail</servlet-name>
+		<url-pattern>/dungeon/detail</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>dungeonAdd</servlet-name>
+		<url-pattern>/dungeon/add</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>dungeonAddProcess</servlet-name>
+		<url-pattern>/dungeon/doAdd</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>dungeonDeleteProcess</servlet-name>
+		<url-pattern>/dungeon/doDelete</url-pattern>
+	</servlet-mapping>
+
+	<!-- 아이템  --><servlet>
+	<servlet-name>itemAdd</servlet-name>
+	<jsp-file>/itemAdd.jsp</jsp-file></servlet>
+	<servlet>
+		<servlet-name>itemAddProcess</servlet-name>
+		<jsp-file>/items/addProcess.jsp</jsp-file></servlet>
+	<servlet>
+		<servlet-name>itemDeleteProcess</servlet-name>
+		<jsp-file>/items/deleteProcess.jsp</jsp-file></servlet>
+	<servlet>
+		<servlet-name>itemDetail</servlet-name>
+		<jsp-file>/itemDetail.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>itemAdd</servlet-name>
+		<url-pattern>/item/add</url-pattern></servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>itemAddProcess</servlet-name>
+		<url-pattern>/item/doAdd</url-pattern></servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>itemDeleteProcess</servlet-name>
+		<url-pattern>/item/doDelete</url-pattern></servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>itemDetail</servlet-name>
+		<url-pattern>/item/detail</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<!-- 설정 -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.css</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.gif</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+
+</web-app>  
