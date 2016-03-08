@@ -14,7 +14,7 @@ public class Result {
 	private int errorCode = INVALID_VALUE;
 	private long responseTime = 0;
 	private long duration = 0;
-	private String result = null;
+	private Object result = null;
 	
 	public static Result makeOkResult(){
 		Result result = new Result();
@@ -47,10 +47,10 @@ public class Result {
 	public void setDuration(long duration) {
 		this.duration = duration;
 	}
-	public String getResult() {
+	public Object getResult() {
 		return result;
 	}
-	public void setResult(String result) {
+	public void setResult(Object result) {
 		this.result = result;
 	}
 	@Override
@@ -58,6 +58,4 @@ public class Result {
 		return "Result [messae=" + messae + ", errorCode=" + errorCode + ", responseTime=" + responseTime
 				+ ", duration=" + duration + ", result=" + result + "]";
 	}
-	
-	
 }

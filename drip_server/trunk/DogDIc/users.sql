@@ -6,13 +6,10 @@ CREATE TABLE `drip`.`users` (
   `password` VARCHAR(45) NOT NULL,
   `status` VARCHAR(200) NULL,
   `session` VARCHAR(45) NULL,
-  `createdate` LONGBLOB NULL,
-  `lastconn` LONGBLOB NULL,
+  `createdate` BIGINT(12) NULL,
+  `lastconn` BIGINT(12) NULL,
   `point` INT NULL,
   PRIMARY KEY (`email`));
 
-  
  
-insert into admin(email, password, sessionid, lastconnection) values('fivetrue', password('qudwja123'), "", 0);  
-  
   
