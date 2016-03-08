@@ -1,14 +1,11 @@
 package fivetrue.restapi.drip;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fivetrue.db.DBMessage;
-import com.google.gson.Gson;
 
 import fivetrue.database.manager.DripsManager;
 import fivetrue.database.tables.Drips;
@@ -40,7 +37,7 @@ public class DripApiHandler extends BaseApiHandler{
 			long end = System.currentTimeMillis();
 			Result result = Result.makeOkResult();
 			result.setResponseTime(end);
-			result.setResult(getGson().toJson(drips));
+			result.setResult(drips);
 			result.setDuration(end - start);
 			writeObject(result);
 		}
@@ -56,13 +53,13 @@ public class DripApiHandler extends BaseApiHandler{
 		Result result = new Result();
 		int errorCode = Result.ERROR_CODE_OK;
 		String errorMessage = null;
-		if(drip == null || author == null){
+		if(drip == null || author == null || drip.length() == 0 || author.length() == 0){
 			errorCode = Result.ERROR_CODE_REQUEST_ERROR;
-			if(drip == null && author == null){
+			if((drip == null && author == null) || (drip.length() == 0 && author.length() == 0)){
 				errorMessage = "드립과 작성자가 입력되지 않았습니다."; 
-			}else if(drip == null){
+			}else if(drip == null || drip.length() == 0){
 				errorMessage = "드립이 입력되지 않았습니다.";
-			}else if(author == null){
+			}else if(author == null || author.length() == 0){
 				errorMessage = "작성자가 입력되지 않았습니다.";
 			}else{
 				errorMessage = "비정상적인 요청입니다.";
@@ -80,7 +77,7 @@ public class DripApiHandler extends BaseApiHandler{
 			drips.setAuthor(author);
 			drips.setHeartcount(0);
 			DBMessage message = DripsManager.getInstance().insertObject(drips);
-			result.setResult(getGson().toJson(message));
+			result.setResult(message);
 		}
 		long end = System.currentTimeMillis();
 		result.setResponseTime(end);
