@@ -4,10 +4,10 @@ use drip;
 CREATE TABLE `drip`.`users` (
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `status` JSON NULL,
+  `status` VARCHAR(200) NULL,
   `session` VARCHAR(45) NULL,
-  `createdate` MEDIUMINT(10) NULL,
-  `lastconn` MEDIUMINT(10) NULL,
+  `createdate` LONGBLOB NULL,
+  `lastconn` LONGBLOB NULL,
   `point` INT NULL,
   PRIMARY KEY (`email`));
 
