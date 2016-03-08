@@ -1,4 +1,4 @@
-package tables;
+package fivetrue.database.tables;
 
 import java.util.List;
 
