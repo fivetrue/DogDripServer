@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `drip`.`admin` (
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
   `sessionid` VARCHAR(45) NOT NULL,
-  `lastconnection` BIGINTs NOT NULL,
+  `lastconnection` LONGBLOB NOT NULL,
   PRIMARY KEY (`email`));
   
  
