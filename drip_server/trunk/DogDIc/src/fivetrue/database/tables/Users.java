@@ -1,4 +1,4 @@
-package tables;
+package fivetrue.database.tables;
 
 import com.fivetrue.db.DatabaseObject;
 import com.fivetrue.db.annotation.PrimaryKey;
