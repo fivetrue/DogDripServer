@@ -1,15 +1,11 @@
 package fivetrue.restapi.user;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fivetrue.db.DBMessage;
 
-import fivetrue.database.manager.DripsManager;
 import fivetrue.database.manager.UsersManager;
-import fivetrue.database.tables.Drips;
 import fivetrue.database.tables.Users;
 import fivetrue.restapi.BaseApiHandler;
 import fivetrue.restapi.Result;
@@ -29,8 +25,8 @@ public class UserApiHandler extends BaseApiHandler{
 	public static final String DEVICE = "device";
 	
 	public static final int ERROR_CODE_DUPLICATED_EMAIL = 2000;
-	public static final int ERROR_CODE_DUPLICATED_NICKNAME = 3000;
-	public static final int ERROR_CODE_INVALID_LOGIN_INFO = 4000;
+	public static final int ERROR_CODE_DUPLICATED_NICKNAME = 2001;
+	public static final int ERROR_CODE_INVALID_LOGIN_INFO = 2002;
 	
 
 	public UserApiHandler(HttpServletRequest request, HttpServletResponse response) {

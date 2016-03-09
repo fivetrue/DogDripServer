@@ -32,5 +32,19 @@ public class DripsManager extends DatabaseManagerImpl<Drips>{
 	public List<Drips> getAllDrips(){
 		return getSelectQueryData(null, null);
 	}
+	
+	public boolean checkDrip(String drip){
+		boolean check = true;
+		if(drip != null && drip.length() > 0){
+			List<Drips> data = getSelectQueryData(null, "drip='" + drip +"'");
+			if(data != null && data.size() > 0){
+				check = false;
+			}
+		}else{
+			check = false;
+		}
+		
+		return check;
+	}
 
 }
