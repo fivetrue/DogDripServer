@@ -33,11 +33,9 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	
 	public boolean isValidUser(String email){
 		boolean b = false;
-		if(isValidEmail(email)){
-			List<Users> data = getSelectQueryData(null, "email='" + email +"'");
-			if(data != null && data.size() > 0){
-				b = true;
-			}
+		List<Users> data = getSelectQueryData(null, "email='" + email +"'");
+		if(data != null && data.size() > 0){
+			b = true;
 		}
 		return b;
 	}

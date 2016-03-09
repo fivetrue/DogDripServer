@@ -14,4 +14,4 @@ CREATE TABLE `drip`.`users` (
   PRIMARY KEY (`email`));
 
  
-  
+insert into users (email,nickname,password,status,createdate,lastconn,point,gcm,device) values ('admin','admin',password('emflqadmin'),'null',1457542902710,0,0,'null','null');
