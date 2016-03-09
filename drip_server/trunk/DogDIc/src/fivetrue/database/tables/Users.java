@@ -1,19 +1,21 @@
 package fivetrue.database.tables;
 
 import com.fivetrue.db.DatabaseObject;
+import com.fivetrue.db.annotation.Password;
 import com.fivetrue.db.annotation.PrimaryKey;
 
 public class Users extends DatabaseObject{
 	
 	@PrimaryKey
 	private String email = null;
-	
+	private String nickname = null;
+
+	@Password
 	private String password = null;
 	/**
 	 * status는 json 형태의 데이터이다.
 	 */
 	private String status = null;
-	private String session = null;
 	private long createdate = 0;
 	private long lastconn = 0;
 	private int point = 0;
@@ -26,6 +28,13 @@ public class Users extends DatabaseObject{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -37,12 +46,6 @@ public class Users extends DatabaseObject{
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	public String getSession() {
-		return session;
-	}
-	public void setSession(String session) {
-		this.session = session;
 	}
 	public long getCreatedate() {
 		return createdate;
@@ -77,7 +80,7 @@ public class Users extends DatabaseObject{
 	}
 	@Override
 	public String toString() {
-		return "Users [email=" + email + ", password=" + password + ", status=" + status + ", session=" + session
+		return "Users [email=" + email + ", nickname=" + nickname + ", password=" + password + ", status=" + status
 				+ ", createdate=" + createdate + ", lastconn=" + lastconn + ", point=" + point + ", gcm=" + gcm
 				+ ", device=" + device + "]";
 	}

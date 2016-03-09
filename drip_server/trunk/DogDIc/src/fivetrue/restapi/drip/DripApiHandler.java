@@ -26,7 +26,6 @@ public class DripApiHandler extends BaseApiHandler{
 
 
 	public void readDrips(){
-		long start = System.currentTimeMillis();
 		String id = getParameter(ID);
 		String drip = getParameter(DRIP);
 		String author = getParameter(AUTHOR);
@@ -34,18 +33,14 @@ public class DripApiHandler extends BaseApiHandler{
 		List<Drips> drips = DripsManager.getInstance().getAllDrips();
 
 		if(drips != null){
-			long end = System.currentTimeMillis();
 			Result result = Result.makeOkResult();
-			result.setResponseTime(end);
 			result.setResult(drips);
-			result.setDuration(end - start);
+			result.makeResponseTime();
 			writeObject(result);
 		}
 	}
 	
 	public void putDrip(){
-		
-		long start = System.currentTimeMillis();
 		
 		String drip = getParameter(DRIP);
 		String author = getParameter(AUTHOR);
@@ -69,19 +64,25 @@ public class DripApiHandler extends BaseApiHandler{
 		}
 		
 		result.setErrorCode(errorCode);
-		result.setMessae(errorMessage);
+		result.setMessage(errorMessage);
 		if(errorCode == result.ERROR_CODE_OK){
 			Drips drips = new Drips();
 			drips.setCreatedate(System.currentTimeMillis());
 			drips.setDrip(drip);
 			drips.setAuthor(author);
 			drips.setHeartcount(0);
-			DBMessage message = DripsManager.getInstance().insertObject(drips);
-			result.setResult(message);
+			DBMessage dbMsg = DripsManager.getInstance().insertObject(drips);
+			if(dbMsg.getRow() > 0){
+				result.setErrorCode(Result.ERROR_CODE_OK);
+				result.setResult(drips);		
+			}else{
+				result.setErrorCode(Result.ERROR_CODE_DB_ERROR);
+				result.setMessage(dbMsg.getMessage());
+				result.setResult(dbMsg);
+			}
+			
 		}
-		long end = System.currentTimeMillis();
-		result.setResponseTime(end);
-		result.setDuration(end - start);
+		result.makeResponseTime();
 		writeObject(result);
 	}
 
