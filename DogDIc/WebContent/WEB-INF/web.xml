@@ -12,7 +12,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping> -->
 	
-	
+	<!-- Drip 관련 Servlet -->
 	<servlet>
 		<servlet-name>getDrip</servlet-name>
 		<jsp-file>/drip/ReadDrip.jsp</jsp-file>
@@ -33,6 +33,27 @@
 		<url-pattern>/drip/put</url-pattern>
 	</servlet-mapping>
 	
+	
+	<!-- User 관련 Servlet -->
+	<servlet>
+		<servlet-name>registerUser</servlet-name>
+		<jsp-file>/user/RegisterUser.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>registerUser</servlet-name>
+		<url-pattern>/user/register</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>loginUser</servlet-name>
+		<jsp-file>/user/LoginUser.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>loginUser</servlet-name>
+		<url-pattern>/user/login</url-pattern>
+	</servlet-mapping>
 	
 	<!-- 설정 -->
     <servlet-mapping>

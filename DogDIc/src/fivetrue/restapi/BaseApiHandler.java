@@ -50,4 +50,8 @@ public abstract class BaseApiHandler {
 			}
 		}
 	}
+	
+	public HttpServletRequest getRequest(){
+		return mRequest;
+	}
 }
