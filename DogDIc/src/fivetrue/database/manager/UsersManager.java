@@ -30,6 +30,17 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 		// TODO Auto-generated method stub
 		return Users.class;
 	}
+	
+	public boolean isValidUser(String email){
+		boolean b = false;
+		if(isValidEmail(email)){
+			List<Users> data = getSelectQueryData(null, "email='" + email +"'");
+			if(data != null && data.size() > 0){
+				b = true;
+			}
+		}
+		return b;
+	}
 
 	public boolean checkUserEmail(String email){
 		boolean b = true;
