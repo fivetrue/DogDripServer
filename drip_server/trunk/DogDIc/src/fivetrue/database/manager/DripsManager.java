@@ -30,7 +30,49 @@ public class DripsManager extends DatabaseManagerImpl<Drips>{
 	}
 	
 	public List<Drips> getAllDrips(){
-		return getSelectQueryData(null, null);
+		return getDrips(null, null, null);
+	}
+	
+	public List<Drips> getDripsByAuthor(String author){
+		return getDrips(null, author, null);
+	}
+	
+	public Drips getDripById(String id){
+		Drips drip = null;
+		if(id != null && id.length() > 0){
+			List<Drips> drips = getDrips(id, null, null);
+			if(drips != null && drips.size() > 0){
+				drip = drips.get(0);
+			}
+		}
+		return drip;
+	}
+	
+	public List<Drips> getDrips(String id, String author, String drip){
+		String where = null;
+		if(id != null && id.length() > 0){
+			where = "id=" + id;
+		}
+		
+		if(author != null && author.length() > 0){
+			if(where != null && where.length() > 0){
+				where += " and";
+			}else{
+				where = "";
+			}
+			where += " author='" + author + "'";
+		}
+		
+		if(drip != null && drip.length() > 0){
+			if(where != null && where.length() > 0){
+				where += " and";
+			}else{
+				where = "";
+			}
+			where += " drip='" + drip + "'";
+		}
+		
+		return getSelectQueryData(null, where);
 	}
 	
 	public boolean checkDrip(String drip){

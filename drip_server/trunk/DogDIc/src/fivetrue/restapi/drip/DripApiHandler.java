@@ -10,6 +10,7 @@ import com.fivetrue.db.DBMessage;
 import fivetrue.database.manager.DripsManager;
 import fivetrue.database.manager.UsersManager;
 import fivetrue.database.tables.Drips;
+import fivetrue.database.tables.Users;
 import fivetrue.restapi.BaseApiHandler;
 import fivetrue.restapi.Result;
 
@@ -19,10 +20,10 @@ public class DripApiHandler extends BaseApiHandler{
 	public static final String ID = "id";
 	public static final String DRIP = "drip";
 	public static final String AUTHOR = "author";
+	public static final String USER = "user";
 
 	public static final int ERROR_CODE_INVALID_AUTHOR = 1000;
 	public static final int ERROR_CODE_DUPLICATED_DRIP = 1001;
-
 	
 
 	public DripApiHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -30,20 +31,44 @@ public class DripApiHandler extends BaseApiHandler{
 		// TODO Auto-generated constructor stub
 	}
 
+	public void likeDrip(){
+		String id = getParameter(ID);
+		String author = getParameter(AUTHOR);
+		String user = getParameter(USER);
+		
+		boolean isValidId = id != null && id.length() > 0;
+		boolean isValidAuthor = author != null && author.length() > 0;
+		boolean isValidUser = user != null && user.length() > 0;
+		Result result = new Result();
+		if(isValidAuthor && isValidId && isValidUser){
+			Users authorUser = UsersManager.getInstance().getUser(author);
+			Users requestUser = UsersManager.getInstance().getUser(user);
+			
+			
+		}else{
+			result.setErrorCode(Result.ERROR_CODE_REQUEST_ERROR);
+			result.setMessage("작성자 계정 또는 유저 계정 또는 드립 ID가 올바르지 않습니다.");
+		}
+		result.makeResponseTime();
+		writeObject(result);
+		
+		
+		
+		
+		
+	}
 
 	public void readDrips(){
 		String id = getParameter(ID);
 		String drip = getParameter(DRIP);
 		String author = getParameter(AUTHOR);
 
-		List<Drips> drips = DripsManager.getInstance().getAllDrips();
-
-		if(drips != null){
-			Result result = Result.makeOkResult();
-			result.setResult(drips);
-			result.makeResponseTime();
-			writeObject(result);
-		}
+		List<Drips> drips = DripsManager.getInstance().getDrips(id, author, drip);
+		Result result = new Result();
+		result.setErrorCode(Result.ERROR_CODE_OK);
+		result.setResult(drips);
+		result.makeResponseTime();
+		writeObject(result);
 	}
 	
 	public void putDrip(){
