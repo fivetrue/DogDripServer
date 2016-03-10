@@ -12,6 +12,15 @@ import fivetrue.database.tables.Users;
 public class UsersManager extends DatabaseManagerImpl<Users>{
 
 	private static UsersManager sInstance = null;
+    
+	 
+	private static final String[] DEFAULT_SELECTION = {
+			"email",
+			"nickname",
+			"status",
+			"createdate",
+			"lastconn",
+	};
 
 	public static UsersManager getInstance(){
 		if(sInstance == null){
@@ -33,7 +42,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	
 	public boolean isValidUser(String email){
 		boolean b = false;
-		List<Users> data = getSelectQueryData(null, "email='" + email +"'");
+		List<Users> data = getSelectQueryData(DEFAULT_SELECTION, "email='" + email +"'");
 		if(data != null && data.size() > 0){
 			b = true;
 		}
@@ -43,7 +52,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	public boolean checkUserEmail(String email){
 		boolean b = true;
 		if(isValidEmail(email)){
-			List<Users> data = getSelectQueryData(null, "email='" + email +"'");
+			List<Users> data = getSelectQueryData(DEFAULT_SELECTION, "email='" + email +"'");
 			if(data != null && data.size() > 0){
 				b = false;
 			}
@@ -54,7 +63,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	public boolean checkUserNickname(String nickname){
 		boolean b = true;
 		if(nickname != null && nickname.length() > 0){
-			List<Users> data = getSelectQueryData(null, "nickname='" + nickname +"'");
+			List<Users> data = getSelectQueryData(DEFAULT_SELECTION, "nickname='" + nickname +"'");
 			if(data != null && data.size() > 0){
 				b = false;
 			}
@@ -64,9 +73,10 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 		return b;
 	}
 	
-	public Users getUser(String email, String password){
+	public Users checkUser(String email, String password){
 		Users user = null;
 		if(email != null && password != null){
+			
 			List<Users> data = getSelectQueryData(null, "email='" + email +"' and password=password('" + password +"')");
 			if(data != null && data.size() > 0){
 				user = data.get(0);
