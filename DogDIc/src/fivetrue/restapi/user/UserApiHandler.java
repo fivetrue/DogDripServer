@@ -1,5 +1,7 @@
 package fivetrue.restapi.user;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -116,20 +118,33 @@ public class UserApiHandler extends BaseApiHandler{
 		Result result = new Result();
 		
 		if(isValidEmail && isValidPassword && isValidDevice){
-			Users user = UsersManager.getInstance().getUser(email, password);
+			Users user = UsersManager.getInstance().checkUser(email, password);
 			if(user != null){
-				user.setLastconn(System.currentTimeMillis());
+				/**
+				 * 일일 첫 방문 시 포인트 증가 로직.
+				 */
+				long currentConnTimestamp = System.currentTimeMillis();
+				long lastDays =  TimeUnit.MILLISECONDS.toDays(user.getLastconn());
+				long currentDays = TimeUnit.MILLISECONDS.toDays(currentConnTimestamp);
+				
+				if(currentDays > lastDays){
+					user.setPoint(user.getPoint() + 1);
+				}
+				
+				user.setLastconn(currentConnTimestamp);
 				user.setDevice(device);
 				DBMessage dbMsg = UsersManager.getInstance().updateObject(user);
-				
 				if(dbMsg.getRow() > 0){
 					result.setMessage(Result.OK_MESSAGE);
 					result.setErrorCode(Result.ERROR_CODE_OK);
+					user.setPassword(null);
+					user.setDevice(null);
+					user.setGcm(null);
 					result.setResult(user);	
 				}else{
 					result.setMessage(dbMsg.getMessage());
 					result.setErrorCode(Result.ERROR_CODE_DB_ERROR);
-					result.setResult(user);
+					result.setResult(dbMsg);
 				}
 			}else{
 				result.setMessage("아이디 또는 비밀번호가 올바르지 않습니다.");
