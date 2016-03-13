@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import fivetrue.Constants;
+
 public abstract class BaseApiHandler {
 	
 	private HttpServletRequest mRequest = null;
@@ -26,6 +28,20 @@ public abstract class BaseApiHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	protected boolean checkRequestValidation(){
+		String appId = mRequest.getHeader(Constants.KEY_APP_ID);
+		String appKey = mRequest.getHeader(Constants.KEY_APP_KEY);
+		boolean b = appId != null && appId.equals(Constants.APP_ID) && appKey != null && appKey.equals(Constants.APP_KEY);
+		if(!b){
+			Result result = new Result();
+			result.setErrorCode(Result.ERROR_CODE_REQUEST_ERROR);
+			result.setMessage("Invalid header values");
+			result.makeResponseTime();
+			writeObject(result);
+		}
+		return b;
 	}
 	
 	protected Gson getGson(){

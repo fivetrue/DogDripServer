@@ -55,6 +55,18 @@
 		<url-pattern>/user/login</url-pattern>
 	</servlet-mapping>
 	
+	<!-- Config -->
+	
+	<servlet>
+		<servlet-name>appConfig</servlet-name>
+		<jsp-file>/config/AppConfig.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>appConfig</servlet-name>
+		<url-pattern>/config/app</url-pattern>
+	</servlet-mapping>
+	
 	<!-- 설정 -->
     <servlet-mapping>
         <servlet-name>default</servlet-name>
