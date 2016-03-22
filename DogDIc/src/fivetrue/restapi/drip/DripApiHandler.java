@@ -1,5 +1,6 @@
 package fivetrue.restapi.drip;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import com.fivetrue.db.DBMessage;
 import fivetrue.database.manager.DripsManager;
 import fivetrue.database.manager.UsersManager;
 import fivetrue.database.tables.Drips;
+import fivetrue.database.tables.UserStatus;
 import fivetrue.database.tables.Users;
 import fivetrue.restapi.BaseApiHandler;
 import fivetrue.restapi.Result;
@@ -24,6 +26,7 @@ public class DripApiHandler extends BaseApiHandler{
 
 	public static final int ERROR_CODE_INVALID_AUTHOR = 1000;
 	public static final int ERROR_CODE_DUPLICATED_DRIP = 1001;
+	public static final int ERROR_CODE_ALREAY_LIKE_DRIP = 2000;
 	
 
 	public DripApiHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -34,21 +37,44 @@ public class DripApiHandler extends BaseApiHandler{
 	public void likeDrip(){
 		if(checkRequestValidation()){
 			String id = getParameter(ID);
-			String author = getParameter(AUTHOR);
 			String user = getParameter(USER);
 			
 			boolean isValidId = id != null && id.length() > 0;
-			boolean isValidAuthor = author != null && author.length() > 0;
 			boolean isValidUser = user != null && user.length() > 0;
 			Result result = new Result();
-			if(isValidAuthor && isValidId && isValidUser){
-				Users authorUser = UsersManager.getInstance().getUser(author);
+			if(isValidId && isValidUser){
 				Users requestUser = UsersManager.getInstance().getUser(user);
-				
+				String status = requestUser.getStatus();
+				UserStatus userstatus = null;
+				if(status != null){
+					userstatus = getGson().fromJson(status, UserStatus.class);
+					/**
+					 * 이미 추가된 드립인지체크한다.
+					 */
+					for(String dripId : userstatus.getLikeDripIds()){
+						if(dripId.equals(id)){
+							result.setErrorCode(ERROR_CODE_ALREAY_LIKE_DRIP);
+							result.setMessage("이미 추천한 드립입니다.");
+							result.makeResponseTime();
+							writeObject(result);
+							return;
+						}
+					}
+					userstatus.getLikeDripIds().add(id);
+				}else{
+					userstatus = new UserStatus();
+					ArrayList<String> likeDrip = new ArrayList<String>();
+					likeDrip.add(id);
+					userstatus.setLikeDripIds(likeDrip);
+				}
+				requestUser.setStatus(getGson().toJson(userstatus));
+				DBMessage msg = UsersManager.getInstance().updateObject(requestUser);
+				result.setErrorCode(Result.ERROR_CODE_OK);
+				result.setResult(msg);
 				
 			}else{
 				result.setErrorCode(Result.ERROR_CODE_REQUEST_ERROR);
-				result.setMessage("작성자 계정 또는 유저 계정 또는 드립 ID가 올바르지 않습니다.");
+				result.setMessage("유저 계정 또는 드립 ID가 올바르지 않습니다.");
 			}
 			result.makeResponseTime();
 			writeObject(result);
@@ -85,7 +111,8 @@ public class DripApiHandler extends BaseApiHandler{
 				/**
 				 * 작성자가회원인지 체크.
 				 */
-				if(UsersManager.getInstance().isValidUser(author)){
+				Users authorUser = UsersManager.getInstance().getUser(author);
+				if(authorUser != null){
 					/**
 					 * 중복된 드립인 체크.
 					 */
@@ -98,7 +125,7 @@ public class DripApiHandler extends BaseApiHandler{
 						DBMessage dbMsg = DripsManager.getInstance().insertObject(drips);
 						if(dbMsg.getRow() > 0){
 							result.setErrorCode(Result.ERROR_CODE_OK);
-							result.setResult(drips);		
+							result.setResult(drips);	
 						}else{
 							result.setErrorCode(Result.ERROR_CODE_DB_ERROR);
 							result.setMessage(dbMsg.getMessage());

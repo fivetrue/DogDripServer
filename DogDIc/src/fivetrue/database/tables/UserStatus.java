@@ -10,13 +10,22 @@ import java.util.List;
 public class UserStatus {
 	
 	private List<String> dripIds = null;
+	private List<String> likeDripIds = null;
+	
 	private List<String> follower = null;
 	private List<String> following = null;
+	
 	public List<String> getDripIds() {
 		return dripIds;
 	}
 	public void setDripIds(List<String> dripIds) {
 		this.dripIds = dripIds;
+	}
+	public List<String> getLikeDripIds() {
+		return likeDripIds;
+	}
+	public void setLikeDripIds(List<String> likeDripIds) {
+		this.likeDripIds = likeDripIds;
 	}
 	public List<String> getFollower() {
 		return follower;

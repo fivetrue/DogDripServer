@@ -5,5 +5,5 @@
     
  <%
 	DripApiHandler handler = new DripApiHandler(request, response);
- 	handler.readDrips();
+ 	handler.likeDrip();
  %>

@@ -1,5 +1,10 @@
 package fivetrue.restapi.user;
 
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fivetrue.db.DBMessage;
 
+import fivetrue.database.manager.DripsManager;
 import fivetrue.database.manager.UsersManager;
+import fivetrue.database.tables.Drips;
+import fivetrue.database.tables.UserStatus;
 import fivetrue.database.tables.Users;
 import fivetrue.restapi.BaseApiHandler;
 import fivetrue.restapi.Result;
@@ -143,6 +151,22 @@ public class UserApiHandler extends BaseApiHandler{
 						user.setPassword(null);
 						user.setDevice(null);
 						user.setGcm(null);
+						
+						UserStatus userStatus = null;
+						List<Drips> drips = DripsManager.getInstance().getDripsByAuthor(user.getEmail());
+						if(user.getStatus() != null){
+							userStatus = getGson().fromJson(user.getStatus(), UserStatus.class);
+						}
+						if(userStatus == null){
+							userStatus = new UserStatus();
+						}
+						
+						ArrayList<String> userDrips = new ArrayList<>();
+						for(Drips drip : drips){
+							userDrips.add(drip.getId() + "");
+						}
+						userStatus.setDripIds(userDrips);
+						user.setStatus(getGson().toJson(userStatus));
 						result.setResult(user);	
 					}else{
 						result.setMessage(dbMsg.getMessage());
