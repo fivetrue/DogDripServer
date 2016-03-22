@@ -13,9 +13,9 @@ public class Constants {
 	public static final String APP_ID = "com.hany.dogdripproject";
 	public static final String APP_KEY = "com.fivetrue";
 	
-	public static final String APP_LATEST_VERSION = "";
-	public static final String APP_VERSION_NAME = "";
-	public static final String APP_MARKET_URL = "";
+	public static final String APP_LATEST_VERSION = "39";
+	public static final String APP_VERSION_NAME = "2016031901";
+	public static final String APP_MARKET_URL = "http://play.google.com/";
 	
 
 }

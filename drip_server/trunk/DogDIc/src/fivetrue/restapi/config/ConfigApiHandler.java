@@ -20,6 +20,7 @@ public class ConfigApiHandler extends BaseApiHandler{
 	public void getAppConfig(){
 		if(checkRequestValidation()){
 			Result result = new Result();
+			result.setErrorCode(Result.ERROR_CODE_OK);
 			AppConfig config = new AppConfig();
 			config.appId = Constants.APP_ID;
 			config.appLatestVersion = Constants.APP_LATEST_VERSION;
