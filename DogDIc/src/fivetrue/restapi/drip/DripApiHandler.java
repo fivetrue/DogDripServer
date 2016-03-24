@@ -26,12 +26,35 @@ public class DripApiHandler extends BaseApiHandler{
 
 	public static final int ERROR_CODE_INVALID_AUTHOR = 1000;
 	public static final int ERROR_CODE_DUPLICATED_DRIP = 1001;
+	public static final int ERROR_CODE_INVALID_DRIP = 1002;
 	public static final int ERROR_CODE_ALREAY_LIKE_DRIP = 2000;
 	
 
 	public DripApiHandler(HttpServletRequest request, HttpServletResponse response) {
 		super(request, response);
 		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public void checkLike(){
+		if(checkRequestValidation()){
+			String id = getParameter(ID);
+			boolean isValidId = id != null && id.length() > 0;
+			Result result = new Result();
+			if(isValidId){
+				Drips targetDrip = DripsManager.getInstance().getDripById(id);
+				if(targetDrip != null){
+					List<LikeDrips> likes = LikeDripsManager.getInstance().getDrips(id, null, null);
+					result.setErrorCode(Result.ERROR_CODE_OK);
+					result.setResult(likes);
+				}else{
+					result.setErrorCode(ERROR_CODE_INVALID_DRIP);
+					result.setMessage("존재하지 않는 드립입니다.");
+				}
+			}
+			result.makeResponseTime();
+			writeObject(result);
+		}
 	}
 
 	public void likeDrip(){

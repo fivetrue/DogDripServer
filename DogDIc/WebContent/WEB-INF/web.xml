@@ -43,6 +43,16 @@
 		<url-pattern>/drip/like</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>checkLikeDrip</servlet-name>
+		<jsp-file>/drip/CheckLike.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>checkLikeDrip</servlet-name>
+		<url-pattern>/drip/check</url-pattern>
+	</servlet-mapping>
+	
 	
 	<!-- User 관련 Servlet -->
 	<servlet>
