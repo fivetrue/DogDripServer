@@ -88,7 +88,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	public Users getUser(String email){
 		Users user = null;
 		if(email != null){
-			List<Users> data = getSelectQueryData(null, "email='" + email);
+			List<Users> data = getSelectQueryData(null, "email='" + email +"'");
 			if(data != null && data.size() > 0){
 				user = data.get(0);
 			}

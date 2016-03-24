@@ -1,6 +1,5 @@
 package fivetrue.restapi.drip;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.fivetrue.db.DBMessage;
 
 import fivetrue.database.manager.DripsManager;
+import fivetrue.database.manager.LikeDripsManager;
 import fivetrue.database.manager.UsersManager;
 import fivetrue.database.tables.Drips;
-import fivetrue.database.tables.UserStatus;
+import fivetrue.database.tables.LikeDrips;
 import fivetrue.database.tables.Users;
 import fivetrue.restapi.BaseApiHandler;
 import fivetrue.restapi.Result;
@@ -43,35 +43,45 @@ public class DripApiHandler extends BaseApiHandler{
 			boolean isValidUser = user != null && user.length() > 0;
 			Result result = new Result();
 			if(isValidId && isValidUser){
-				Users requestUser = UsersManager.getInstance().getUser(user);
-				String status = requestUser.getStatus();
-				UserStatus userstatus = null;
-				if(status != null){
-					userstatus = getGson().fromJson(status, UserStatus.class);
+				Drips targetDrip = DripsManager.getInstance().getDripById(id);
+				if(targetDrip != null){
 					/**
-					 * 이미 추가된 드립인지체크한다.
+					 * 이미 좋아요 드립인지 확인 한다.
 					 */
-					for(String dripId : userstatus.getLikeDripIds()){
-						if(dripId.equals(id)){
-							result.setErrorCode(ERROR_CODE_ALREAY_LIKE_DRIP);
-							result.setMessage("이미 추천한 드립입니다.");
-							result.makeResponseTime();
-							writeObject(result);
-							return;
+					List<LikeDrips> existLike = LikeDripsManager.getInstance().getDrips(targetDrip.getId() + ""
+							, targetDrip.getAuthor(), user);
+					if(existLike != null && existLike.size() > 0){
+						/**
+						 * 이미 좋아요 
+						 */
+						result.setErrorCode(ERROR_CODE_ALREAY_LIKE_DRIP);
+						result.setMessage("이미 추천한 드립입니다.");
+					}else{
+						/**
+						 * like추가.
+						 */
+						LikeDrips ld = new LikeDrips();
+						ld.setAuthor(targetDrip.getAuthor());
+						ld.setId(targetDrip.getId());
+						ld.setUser(user);
+						ld.setCreatedate(System.currentTimeMillis());
+						DBMessage msg = LikeDripsManager.getInstance().insertObject(ld);
+						if(msg != null && msg.getRow() > 0){
+							/**
+							 * 추가완료 후 드립 작성자에게 포인트 증가.
+							 */
+							Users author = UsersManager.getInstance().getUser(targetDrip.getAuthor());
+							if(author != null){
+								author.setPoint(author.getPoint() + 10);
+								UsersManager.getInstance().updateObject(author);
+							}
+							result.setErrorCode(Result.ERROR_CODE_OK);
+							result.setMessage("추천이 완료되었습니다.");
+							result.setResult(msg);
 						}
 					}
-					userstatus.getLikeDripIds().add(id);
-				}else{
-					userstatus = new UserStatus();
-					ArrayList<String> likeDrip = new ArrayList<String>();
-					likeDrip.add(id);
-					userstatus.setLikeDripIds(likeDrip);
+					
 				}
-				requestUser.setStatus(getGson().toJson(userstatus));
-				DBMessage msg = UsersManager.getInstance().updateObject(requestUser);
-				result.setErrorCode(Result.ERROR_CODE_OK);
-				result.setResult(msg);
-				
 			}else{
 				result.setErrorCode(Result.ERROR_CODE_REQUEST_ERROR);
 				result.setMessage("유저 계정 또는 드립 ID가 올바르지 않습니다.");
