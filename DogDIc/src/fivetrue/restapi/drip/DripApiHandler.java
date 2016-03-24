@@ -75,6 +75,9 @@ public class DripApiHandler extends BaseApiHandler{
 								author.setPoint(author.getPoint() + 10);
 								UsersManager.getInstance().updateObject(author);
 							}
+							
+							targetDrip.setHeartcount(targetDrip.getHeartcount() + 1);
+							DripsManager.getInstance().updateObject(targetDrip);
 							result.setErrorCode(Result.ERROR_CODE_OK);
 							result.setMessage("추천이 완료되었습니다.");
 							result.setResult(msg);
