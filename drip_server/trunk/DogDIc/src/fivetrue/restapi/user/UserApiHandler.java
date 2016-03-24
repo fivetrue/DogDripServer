@@ -139,7 +139,7 @@ public class UserApiHandler extends BaseApiHandler{
 					long currentDays = TimeUnit.MILLISECONDS.toDays(currentConnTimestamp);
 					
 					if(currentDays > lastDays){
-						user.setPoint(user.getPoint() + 1);
+						user.setPoint(user.getPoint() + 10);
 					}
 					
 					user.setLastconn(currentConnTimestamp);
@@ -151,22 +151,6 @@ public class UserApiHandler extends BaseApiHandler{
 						user.setPassword(null);
 						user.setDevice(null);
 						user.setGcm(null);
-						
-						UserStatus userStatus = null;
-						List<Drips> drips = DripsManager.getInstance().getDripsByAuthor(user.getEmail());
-						if(user.getStatus() != null){
-							userStatus = getGson().fromJson(user.getStatus(), UserStatus.class);
-						}
-						if(userStatus == null){
-							userStatus = new UserStatus();
-						}
-						
-						ArrayList<String> userDrips = new ArrayList<>();
-						for(Drips drip : drips){
-							userDrips.add(drip.getId() + "");
-						}
-						userStatus.setDripIds(userDrips);
-						user.setStatus(getGson().toJson(userStatus));
 						result.setResult(user);	
 					}else{
 						result.setMessage(dbMsg.getMessage());

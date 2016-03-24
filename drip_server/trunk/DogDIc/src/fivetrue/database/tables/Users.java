@@ -15,7 +15,6 @@ public class Users extends DatabaseObject{
 	/**
 	 * status는 json 형태의 데이터이다.
 	 */
-	private String status = null;
 	private long createdate = 0;
 	private long lastconn = 0;
 	private int point = 0;
@@ -40,12 +39,6 @@ public class Users extends DatabaseObject{
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
 	}
 	public long getCreatedate() {
 		return createdate;
@@ -80,7 +73,7 @@ public class Users extends DatabaseObject{
 	}
 	@Override
 	public String toString() {
-		return "Users [email=" + email + ", nickname=" + nickname + ", password=" + password + ", status=" + status
+		return "Users [email=" + email + ", nickname=" + nickname + ", password=" + password 
 				+ ", createdate=" + createdate + ", lastconn=" + lastconn + ", point=" + point + ", gcm=" + gcm
 				+ ", device=" + device + "]";
 	}

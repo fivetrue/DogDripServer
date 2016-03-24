@@ -1,6 +1,8 @@
 package fivetrue.database.manager;
 
 
+import java.util.List;
+
 import com.fivetrue.db.manager.DatabaseManagerImpl;
 
 import fivetrue.Constants;
@@ -26,5 +28,32 @@ public class LikeDripsManager extends DatabaseManagerImpl<LikeDrips>{
 	protected Class<? extends LikeDrips> getDatabaseObjectClass() {
 		// TODO Auto-generated method stub
 		return LikeDrips.class;
+	}
+	
+	public List<LikeDrips> getDrips(String id, String author, String user){
+		String where = null;
+		if(id != null && id.length() > 0){
+			where = "id=" + id;
+		}
+		
+		if(author != null && author.length() > 0){
+			if(where != null && where.length() > 0){
+				where += " and";
+			}else{
+				where = "";
+			}
+			where += " author='" + author + "'";
+		}
+		
+		if(user != null && user.length() > 0){
+			if(where != null && where.length() > 0){
+				where += " and";
+			}else{
+				where = "";
+			}
+			where += " user='" + user + "'";
+		}
+		
+		return getSelectQueryData(null, where);
 	}
 }

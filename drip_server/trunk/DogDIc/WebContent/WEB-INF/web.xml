@@ -33,6 +33,16 @@
 		<url-pattern>/drip/put</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>likeDrip</servlet-name>
+		<jsp-file>/drip/LikeDrip.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>likeDrip</servlet-name>
+		<url-pattern>/drip/like</url-pattern>
+	</servlet-mapping>
+	
 	
 	<!-- User 관련 Servlet -->
 	<servlet>
