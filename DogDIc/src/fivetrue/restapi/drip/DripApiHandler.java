@@ -95,7 +95,7 @@ public class DripApiHandler extends BaseApiHandler{
 							 */
 							Users author = UsersManager.getInstance().getUser(targetDrip.getAuthor());
 							if(author != null){
-								author.setPoint(author.getPoint() + 10);
+								author.setPoint(author.getPoint() + 1);
 								UsersManager.getInstance().updateObject(author);
 							}
 							

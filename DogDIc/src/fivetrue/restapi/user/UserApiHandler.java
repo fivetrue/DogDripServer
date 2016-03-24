@@ -139,7 +139,7 @@ public class UserApiHandler extends BaseApiHandler{
 					long currentDays = TimeUnit.MILLISECONDS.toDays(currentConnTimestamp);
 					
 					if(currentDays > lastDays){
-						user.setPoint(user.getPoint() + 10);
+						user.setPoint(user.getPoint() + 1);
 					}
 					
 					user.setLastconn(currentConnTimestamp);
