@@ -17,7 +17,6 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	private static final String[] DEFAULT_SELECTION = {
 			"email",
 			"nickname",
-			"status",
 			"createdate",
 			"lastconn",
 	};
@@ -42,7 +41,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	
 	public boolean isValidUser(String email){
 		boolean b = false;
-		List<Users> data = getSelectQueryData(DEFAULT_SELECTION, "email='" + email +"'");
+		List<Users> data = getSelectQueryData(null, "email='" + email +"'");
 		if(data != null && data.size() > 0){
 			b = true;
 		}
@@ -52,7 +51,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	public boolean checkUserEmail(String email){
 		boolean b = true;
 		if(isValidEmail(email)){
-			List<Users> data = getSelectQueryData(DEFAULT_SELECTION, "email='" + email +"'");
+			List<Users> data = getSelectQueryData(null, "email='" + email +"'");
 			if(data != null && data.size() > 0){
 				b = false;
 			}
@@ -63,7 +62,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	public boolean checkUserNickname(String nickname){
 		boolean b = true;
 		if(nickname != null && nickname.length() > 0){
-			List<Users> data = getSelectQueryData(DEFAULT_SELECTION, "nickname='" + nickname +"'");
+			List<Users> data = getSelectQueryData(null, "nickname='" + nickname +"'");
 			if(data != null && data.size() > 0){
 				b = false;
 			}
