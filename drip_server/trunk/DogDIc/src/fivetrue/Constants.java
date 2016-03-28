@@ -18,7 +18,7 @@ public class Constants {
 	public static final String APP_MARKET_URL = "http://play.google.com/";
 	
 	public static class GCM{
-		public static String GCM_KEY = "AIzaSyBPScPX3slGSToptku7Dg_DbCD2H6FoiWE";
+		public static String GCM_KEY = "AIzaSyA-k1Qnh4jYpxVvYyX9KF3YCHQPB4cWx8o";
 		
 	}
 	
