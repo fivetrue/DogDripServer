@@ -15,6 +15,7 @@ import fivetrue.database.tables.LikeDrips;
 import fivetrue.database.tables.Users;
 import fivetrue.restapi.BaseApiHandler;
 import fivetrue.restapi.Result;
+import gcm.manager.NotificationManager;
 
 public class DripApiHandler extends BaseApiHandler{
 
@@ -97,6 +98,7 @@ public class DripApiHandler extends BaseApiHandler{
 							if(author != null){
 								author.setPoint(author.getPoint() + 1);
 								UsersManager.getInstance().updateObject(author);
+								NotificationManager.getInstance().sendLikeNotification(targetDrip, author);
 							}
 							
 							targetDrip.setHeartcount(targetDrip.getHeartcount() + 1);

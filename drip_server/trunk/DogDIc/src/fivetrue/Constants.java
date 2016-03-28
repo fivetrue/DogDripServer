@@ -17,5 +17,10 @@ public class Constants {
 	public static final String APP_VERSION_NAME = "2016031901";
 	public static final String APP_MARKET_URL = "http://play.google.com/";
 	
+	public static class GCM{
+		public static String GCM_KEY = "AIzaSyBPScPX3slGSToptku7Dg_DbCD2H6FoiWE";
+		
+	}
+	
 
 }
