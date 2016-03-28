@@ -19,7 +19,7 @@ public class Constants {
 	
 	public static class GCM{
 		public static String GCM_KEY = "AIzaSyA-k1Qnh4jYpxVvYyX9KF3YCHQPB4cWx8o";
-		
+		public static String GCM_SENDER_ID = "110238963961";
 	}
 	
 

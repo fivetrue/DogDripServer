@@ -26,7 +26,7 @@ public class ConfigApiHandler extends BaseApiHandler{
 			config.appLatestVersion = Constants.APP_LATEST_VERSION;
 			config.appVersionName = Constants.APP_VERSION_NAME;
 			config.appMarketUrl = Constants.APP_MARKET_URL;
-			config.gcmId = Constants.GCM.GCM_KEY;
+			config.senderId = Constants.GCM.GCM_SENDER_ID;
 			result.setResult(config);
 			writeObject(result);
 		}
@@ -38,6 +38,6 @@ public class ConfigApiHandler extends BaseApiHandler{
 		public String appLatestVersion = null;
 		public String appVersionName = null;
 		public String appMarketUrl = null;
-		public String gcmId = null;
+		public String senderId = null;
 	}
 }
