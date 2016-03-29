@@ -1,10 +1,6 @@
 package fivetrue.restapi.user;
 
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,10 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fivetrue.db.DBMessage;
 
-import fivetrue.database.manager.DripsManager;
+import fivetrue.database.manager.GcmManager;
 import fivetrue.database.manager.UsersManager;
-import fivetrue.database.tables.Drips;
-import fivetrue.database.tables.UserStatus;
+import fivetrue.database.tables.Gcm;
 import fivetrue.database.tables.Users;
 import fivetrue.restapi.BaseApiHandler;
 import fivetrue.restapi.Result;
@@ -33,6 +28,7 @@ public class UserApiHandler extends BaseApiHandler{
 	public static final String PASSWORD = "password";
 	public static final String NICKNAME = "nickname";
 	public static final String DEVICE = "device";
+	public static final String GCM = "gcm";
 	
 	public static final int ERROR_CODE_DUPLICATED_EMAIL = 2000;
 	public static final int ERROR_CODE_DUPLICATED_NICKNAME = 2001;
@@ -120,15 +116,15 @@ public class UserApiHandler extends BaseApiHandler{
 		if(checkRequestValidation()){
 			String email = getParameter(EMAIL);
 			String password = getParameter(PASSWORD);
-			String device = getParameter(DEVICE);
+			String gcm = getParameter(GCM);
 			
 			boolean isValidEmail = UsersManager.isValidEmail(email);
 			boolean isValidPassword = UsersManager.isValidPassword(password);
-			boolean isValidDevice = device != null && device.length() > 0;
+			boolean isValidGcm = gcm != null && gcm.length() > 0;
 			
 			Result result = new Result();
 			
-			if(isValidEmail && isValidPassword && isValidDevice){
+			if(isValidEmail && isValidPassword && isValidGcm){
 				Users user = UsersManager.getInstance().checkUser(email, password);
 				if(user != null){
 					/**
@@ -143,19 +139,22 @@ public class UserApiHandler extends BaseApiHandler{
 					}
 					
 					user.setLastconn(currentConnTimestamp);
-					user.setDevice(device);
 					DBMessage dbMsg = UsersManager.getInstance().updateObject(user);
 					if(dbMsg.getRow() > 0){
 						result.setMessage(Result.OK_MESSAGE);
 						result.setErrorCode(Result.ERROR_CODE_OK);
 						user.setPassword(null);
-						user.setDevice(null);
-						user.setGcm(null);
 						result.setResult(user);	
 					}else{
 						result.setMessage(dbMsg.getMessage());
 						result.setErrorCode(Result.ERROR_CODE_DB_ERROR);
 						result.setResult(dbMsg);
+					}
+					
+					Gcm gcmInfo = GcmManager.getInstance().getGcmByGcm(gcm);
+					if(gcmInfo != null){
+						gcmInfo.setEmail(email);
+						GcmManager.getInstance().updateObject(gcmInfo);
 					}
 				}else{
 					result.setMessage("아이디 또는 비밀번호가 올바르지 않습니다.");
@@ -165,14 +164,14 @@ public class UserApiHandler extends BaseApiHandler{
 				result.setErrorCode(Result.ERROR_CODE_REQUEST_ERROR);
 				String message = null;
 				
-				if(!isValidEmail && !isValidPassword && isValidDevice){
-					message = "이메일 형식이 올바르지 않습니다. 비밀번호는 8자리 이상 16자리 미만입니다. 닉네임이 올바르지 않습니다. 디바이스 정보가 없습니다.";
+				if(!isValidEmail && !isValidPassword && isValidGcm){
+					message = "이메일 형식이 올바르지 않습니다. 비밀번호는 8자리 이상 16자리 미만입니다. 닉네임이 올바르지 않습니다. GCM 정보가 없습니다.";
 				}else if(!isValidEmail){
 					message = "이메일 형식이 올바르지 않습니다.";
 				}else if(!isValidPassword){
 					message = "비밀번호는 8자리 이상 16자리 미만입니다.";
-				}else if(!isValidDevice){
-					message = "디바이스 정보가 없습니다.";
+				}else if(!isValidGcm){
+					message = "GCM 정보가 없습니다.";
 				}
 				result.setMessage(message);
 			}
@@ -181,5 +180,45 @@ public class UserApiHandler extends BaseApiHandler{
 		}
 	}
 	
+	
+	public void registerGcm(){
+		if(checkRequestValidation()){
+			String id = getParameter(GCM);
+			String device = getParameter(DEVICE);
+			boolean isValidGcm = id != null && id.length() > 0;
+			boolean isValidDevice = device != null && device.length() > 0;
+			Result result = new Result();
+			
+			if(isValidGcm && isValidDevice){
+				Gcm gcm = GcmManager.getInstance().getGcmByGcm(id);
+				if(gcm == null){
+					gcm = new Gcm();
+					gcm.setGcm(id);
+					gcm.setDevice(device);
+					DBMessage msg = GcmManager.getInstance().insertObject(gcm);
+					if(msg != null && msg.getRow() > 0){
+						result.setErrorCode(Result.ERROR_CODE_OK);
+						result.setMessage(Result.OK_MESSAGE);
+						result.setResult(msg);
+					}
+				}else{
+					gcm.setDevice(device);
+					GcmManager.getInstance().updateObject(gcm);
+					DBMessage msg = GcmManager.getInstance().insertObject(gcm);
+					if(msg != null && msg.getRow() > 0){
+						result.setErrorCode(Result.ERROR_CODE_OK);
+						result.setMessage(Result.OK_MESSAGE);
+						result.setResult(msg);
+					}
+				}
+			}else{
+				result.setErrorCode(Result.ERROR_CODE_REQUEST_ERROR);
+				result.setMessage("Gcm Id 또는 Device 정보가 올바르지 않습니다.");
+			}
+			
+			result.makeResponseTime();
+			writeObject(result);
+		}
+	}
 
 }

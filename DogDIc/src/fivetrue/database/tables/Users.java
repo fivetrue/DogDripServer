@@ -18,8 +18,6 @@ public class Users extends DatabaseObject{
 	private long createdate = 0;
 	private long lastconn = 0;
 	private int point = 0;
-	private String gcm = null;
-	private String device = null;
 	
 	public String getEmail() {
 		return email;
@@ -59,23 +57,11 @@ public class Users extends DatabaseObject{
 		this.point = point;
 	}
 	
-	public String getGcm() {
-		return gcm;
-	}
-	public void setGcm(String gcm) {
-		this.gcm = gcm;
-	}
-	public String getDevice() {
-		return device;
-	}
-	public void setDevice(String device) {
-		this.device = device;
-	}
 	@Override
 	public String toString() {
 		return "Users [email=" + email + ", nickname=" + nickname + ", password=" + password 
-				+ ", createdate=" + createdate + ", lastconn=" + lastconn + ", point=" + point + ", gcm=" + gcm
-				+ ", device=" + device + "]";
+				+ ", createdate=" + createdate + ", lastconn=" + lastconn + ", point=" + point +
+				"]";
 	}
 
 }

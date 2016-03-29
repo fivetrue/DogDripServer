@@ -8,7 +8,7 @@ public class MessageData {
 	private String imageUrl = null;
 	private String imageUrlLarge = null;
 	private long createdate = 0;
-	private Object targetObject = null;
+	private String uri = null;
 	
 	public int getId() {
 		return id;
@@ -46,17 +46,18 @@ public class MessageData {
 	public void setCreatedate(long createdate) {
 		this.createdate = createdate;
 	}
-	public Object getTargetObject() {
-		return targetObject;
+	public String getUri() {
+		return uri;
 	}
-	public void setTargetObject(Object targetObject) {
-		this.targetObject = targetObject;
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 	@Override
 	public String toString() {
 		return "MessageData [id=" + id + ", title=" + title + ", message=" + message + ", imageUrl=" + imageUrl
-				+ ", imageUrlLarge=" + imageUrlLarge + ", createdate=" + createdate + ", targetObject=" + targetObject
-				+ "]";
+				+ ", imageUrlLarge=" + imageUrlLarge + ", createdate=" + createdate + ", uri=" + uri + "]";
 	}
+	
+	
 
 }
