@@ -196,20 +196,16 @@ public class UserApiHandler extends BaseApiHandler{
 					gcm.setGcm(id);
 					gcm.setDevice(device);
 					DBMessage msg = GcmManager.getInstance().insertObject(gcm);
-					if(msg != null && msg.getRow() > 0){
-						result.setErrorCode(Result.ERROR_CODE_OK);
-						result.setMessage(Result.OK_MESSAGE);
-						result.setResult(msg);
-					}
+					result.setErrorCode(Result.ERROR_CODE_OK);
+					result.setMessage(Result.OK_MESSAGE);
+					result.setResult(msg);
 				}else{
 					gcm.setDevice(device);
 					GcmManager.getInstance().updateObject(gcm);
-					DBMessage msg = GcmManager.getInstance().insertObject(gcm);
-					if(msg != null && msg.getRow() > 0){
-						result.setErrorCode(Result.ERROR_CODE_OK);
-						result.setMessage(Result.OK_MESSAGE);
-						result.setResult(msg);
-					}
+					DBMessage msg = GcmManager.getInstance().updateObject(gcm);
+					result.setErrorCode(Result.ERROR_CODE_OK);
+					result.setMessage(Result.OK_MESSAGE);
+					result.setResult(msg);
 				}
 			}else{
 				result.setErrorCode(Result.ERROR_CODE_REQUEST_ERROR);
