@@ -66,6 +66,16 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>registerGcm</servlet-name>
+		<jsp-file>/user/RegisterGCM.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>registerGcm</servlet-name>
+		<url-pattern>/user/registerGcm</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>loginUser</servlet-name>
 		<jsp-file>/user/LoginUser.jsp</jsp-file>
 	</servlet>

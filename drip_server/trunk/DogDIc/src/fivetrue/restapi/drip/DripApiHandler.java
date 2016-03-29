@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.fivetrue.db.DBMessage;
 
 import fivetrue.database.manager.DripsManager;
+import fivetrue.database.manager.GcmManager;
 import fivetrue.database.manager.LikeDripsManager;
 import fivetrue.database.manager.UsersManager;
 import fivetrue.database.tables.Drips;
+import fivetrue.database.tables.Gcm;
 import fivetrue.database.tables.LikeDrips;
 import fivetrue.database.tables.Users;
 import fivetrue.restapi.BaseApiHandler;
@@ -98,7 +100,10 @@ public class DripApiHandler extends BaseApiHandler{
 							if(author != null){
 								author.setPoint(author.getPoint() + 1);
 								UsersManager.getInstance().updateObject(author);
-								NotificationManager.getInstance().sendLikeNotification(targetDrip, author);
+								Gcm gcm = GcmManager.getInstance().getGcmByEmail(author.getEmail());
+								if(gcm != null){
+									NotificationManager.getInstance().sendLikeNotification(targetDrip, gcm.getGcm());
+								}
 							}
 							
 							targetDrip.setHeartcount(targetDrip.getHeartcount() + 1);
