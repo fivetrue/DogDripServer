@@ -17,6 +17,7 @@ public class Users extends DatabaseObject{
 	 */
 	private long createdate = 0;
 	private long lastconn = 0;
+	private String imageurl = null;
 	private int point = 0;
 	
 	public String getEmail() {
@@ -57,11 +58,16 @@ public class Users extends DatabaseObject{
 		this.point = point;
 	}
 	
+	public String getImageurl() {
+		return imageurl;
+	}
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
+	}
 	@Override
 	public String toString() {
-		return "Users [email=" + email + ", nickname=" + nickname + ", password=" + password 
-				+ ", createdate=" + createdate + ", lastconn=" + lastconn + ", point=" + point +
-				"]";
+		return "Users [email=" + email + ", nickname=" + nickname + ", password=" + password + ", createdate="
+				+ createdate + ", lastconn=" + lastconn + ", imageurl=" + imageurl + ", point=" + point + "]";
 	}
 
 }

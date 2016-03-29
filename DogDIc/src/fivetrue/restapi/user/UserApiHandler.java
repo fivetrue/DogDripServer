@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fivetrue.db.DBMessage;
 
+import fivetrue.Constants;
 import fivetrue.database.manager.GcmManager;
 import fivetrue.database.manager.UsersManager;
 import fivetrue.database.tables.Gcm;
@@ -76,6 +77,7 @@ public class UserApiHandler extends BaseApiHandler{
 				user.setEmail(email);
 				user.setNickname(nickname);
 				user.setPassword(password);
+				user.setImageurl(Constants.DEFAULT_USER_IMAGE_THUNBNAIL);
 				user.setPoint(0);
 				DBMessage dbMsg = UsersManager.getInstance().insertObject(user);
 				
