@@ -10,6 +10,7 @@ public class Drips extends DatabaseObject{
 	@AutoIncrement
 	private int id = 0;
 	private String drip = null;
+	private String imageurl = null;
 	private String author = null;
 	private long createdate = 0;
 	private int heartcount = 0;
@@ -24,6 +25,13 @@ public class Drips extends DatabaseObject{
 	}
 	public void setDrip(String drip) {
 		this.drip = drip;
+	}
+	
+	public String getImageurl() {
+		return imageurl;
+	}
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
 	}
 	public String getAuthor() {
 		return author;
@@ -45,11 +53,7 @@ public class Drips extends DatabaseObject{
 	}
 	@Override
 	public String toString() {
-		return "Drips [id=" + id + ", drip=" + drip + ", author=" + author + ", createdate=" + createdate
-				+ ", heartcount=" + heartcount + "]";
+		return "Drips [id=" + id + ", drip=" + drip + ", imageurl=" + imageurl + ", author=" + author + ", createdate="
+				+ createdate + ", heartcount=" + heartcount + "]";
 	}
-	
-	
-	
-
 }
