@@ -141,11 +141,13 @@ public class UserApiHandler extends BaseApiHandler{
 					}
 					
 					user.setLastconn(currentConnTimestamp);
+					user.setGcm(gcm);
 					DBMessage dbMsg = UsersManager.getInstance().updateObject(user);
 					if(dbMsg.getRow() > 0){
 						result.setMessage(Result.OK_MESSAGE);
 						result.setErrorCode(Result.ERROR_CODE_OK);
 						user.setPassword(null);
+						user.setGcm(null);
 						result.setResult(user);	
 					}else{
 						result.setMessage(dbMsg.getMessage());

@@ -19,6 +19,7 @@ public class Users extends DatabaseObject{
 	private long lastconn = 0;
 	private String imageurl = null;
 	private int point = 0;
+	private String gcm = null;
 	
 	public String getEmail() {
 		return email;
@@ -64,10 +65,18 @@ public class Users extends DatabaseObject{
 	public void setImageurl(String imageurl) {
 		this.imageurl = imageurl;
 	}
+	
+	public String getGcm() {
+		return gcm;
+	}
+	public void setGcm(String gcm) {
+		this.gcm = gcm;
+	}
 	@Override
 	public String toString() {
 		return "Users [email=" + email + ", nickname=" + nickname + ", password=" + password + ", createdate="
-				+ createdate + ", lastconn=" + lastconn + ", imageurl=" + imageurl + ", point=" + point + "]";
+				+ createdate + ", lastconn=" + lastconn + ", imageurl=" + imageurl + ", point=" + point + ", gcm=" + gcm
+				+ "]";
 	}
 
 }
