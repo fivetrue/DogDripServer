@@ -127,7 +127,7 @@ public class UserApiHandler extends BaseApiHandler{
 			boolean isValidEmail = UsersManager.isValidEmail(email);
 			boolean isValidPassword = UsersManager.isValidPassword(password);
 			boolean isValidGcm = gcm != null && gcm.length() > 0;
-			boolean bAUto = autoLogin != null && Boolean.getBoolean(autoLogin);
+			boolean bAUto = autoLogin != null && Boolean.parseBoolean(autoLogin);
 			long lastConnection = lastConn != null && lastConn.length() > 0 ? Long.parseLong(lastConn) : 0;
 
 			Result result = new Result();
