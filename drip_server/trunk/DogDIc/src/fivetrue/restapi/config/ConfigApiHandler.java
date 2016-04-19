@@ -1,6 +1,7 @@
 package fivetrue.restapi.config;
 
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,8 +13,8 @@ import fivetrue.restapi.Result;
 public class ConfigApiHandler extends BaseApiHandler{
 
 
-	public ConfigApiHandler(HttpServletRequest request, HttpServletResponse response) {
-		super(request, response);
+	public ConfigApiHandler(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
+		super(context, request, response);
 		// TODO Auto-generated constructor stub
 	}
 

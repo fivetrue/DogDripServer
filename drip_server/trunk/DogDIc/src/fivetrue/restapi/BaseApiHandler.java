@@ -3,6 +3,7 @@ package fivetrue.restapi;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,11 +15,13 @@ public abstract class BaseApiHandler {
 	
 	private HttpServletRequest mRequest = null;
 	private HttpServletResponse mResponse = null;
+	private ServletContext mContext = null;
 	
 	private Gson mGson = null;
 	
 	
-	public BaseApiHandler(HttpServletRequest request, HttpServletResponse response){
+	public BaseApiHandler(ServletContext context, HttpServletRequest request, HttpServletResponse response){
+		mContext = context;
 		mRequest = request;
 		mResponse = response;
 		mGson = new Gson();
@@ -33,6 +36,18 @@ public abstract class BaseApiHandler {
 	protected boolean checkRequestValidation(){
 		String appId = mRequest.getHeader(Constants.KEY_APP_ID);
 		String appKey = mRequest.getHeader(Constants.KEY_APP_KEY);
+		String log = "RemoteHost : " + mRequest.getRemoteHost() + "\n"
+				+"RemoteAddr : " + mRequest.getRemoteAddr()  + "\n"
+				+"===========Headers ===============\n"
+				+ "ContentType : " + mRequest.getContentType() + "\n"
+				+ Constants.KEY_APP_ID + " : " + appId + "\n"
+				+ Constants.KEY_APP_KEY + " : " + appKey + "\n";
+				
+		log += "\n===========Parameters ===============\n";
+		for(String key : mRequest.getParameterMap().keySet()){
+			log += key + " : " + mRequest.getParameter(key) + "\n";
+		}
+		mContext.log(log);
 		boolean b = appId != null && appId.equals(Constants.APP_ID) && appKey != null && appKey.equals(Constants.APP_KEY);
 		if(!b){
 			Result result = new Result();

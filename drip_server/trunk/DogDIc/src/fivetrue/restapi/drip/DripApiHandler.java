@@ -2,6 +2,7 @@ package fivetrue.restapi.drip;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,8 +34,8 @@ public class DripApiHandler extends BaseApiHandler{
 	public static final int ERROR_CODE_ALREAY_LIKE_DRIP = 2000;
 	
 
-	public DripApiHandler(HttpServletRequest request, HttpServletResponse response) {
-		super(request, response);
+	public DripApiHandler(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
+		super(context, request, response);
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -3,6 +3,7 @@ package fivetrue.restapi.user;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,8 +40,8 @@ public class UserApiHandler extends BaseApiHandler{
 	public static final int ERROR_CODE_INVALID_LOGIN_INFO = 2002;
 
 
-	public UserApiHandler(HttpServletRequest request, HttpServletResponse response) {
-		super(request, response);
+	public UserApiHandler(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
+		super(context, request, response);
 		// TODO Auto-generated constructor stub
 	}
 
