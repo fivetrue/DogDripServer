@@ -30,6 +30,7 @@ public class UserApiHandler extends BaseApiHandler{
 	public static final String NICKNAME = "nickname";
 	public static final String DEVICE = "device";
 	public static final String GCM = "gcm";
+	public static final String EXTERNAL = "external";
 	public static final String LAST_CONN = "last_conn"; 
 	public static final String AUTO_LOGIN = "auto_login";
 
@@ -48,15 +49,16 @@ public class UserApiHandler extends BaseApiHandler{
 			String email = getParameter(EMAIL);
 			String password = getParameter(PASSWORD);
 			String nickname = getParameter(NICKNAME);
+			boolean validation = Boolean.valueOf(getParameter(EXTERNAL));
 
-			boolean isValidEmail = UsersManager.isValidEmail(email);
-			boolean isValidPassword = UsersManager.isValidPassword(password);
+			boolean isValidEmail = UsersManager.isValidEmail(validation, email);
+			boolean isValidPassword = UsersManager.isValidPassword(validation, password);
 			boolean isValidNickname = nickname != null && nickname.length() > 0;
 
 			Result result = new Result();
 
 			if(isValidEmail && isValidPassword && isValidNickname){
-				boolean checkEmail = UsersManager.getInstance().checkUserEmail(email);
+				boolean checkEmail = UsersManager.getInstance().checkUserEmail(validation, email);
 				if(!checkEmail){
 					result.setErrorCode(ERROR_CODE_DUPLICATED_EMAIL);
 					result.setMessage("중복된 이메일 입니다.");
@@ -123,9 +125,10 @@ public class UserApiHandler extends BaseApiHandler{
 			String gcm = getParameter(GCM);
 			String autoLogin = getParameter(AUTO_LOGIN);
 			String lastConn = getParameter(LAST_CONN);
+			boolean validation = Boolean.valueOf(getParameter(EXTERNAL));
 
-			boolean isValidEmail = UsersManager.isValidEmail(email);
-			boolean isValidPassword = UsersManager.isValidPassword(password);
+			boolean isValidEmail = UsersManager.isValidEmail(validation, email);
+			boolean isValidPassword = UsersManager.isValidPassword(validation, password);
 			boolean isValidGcm = gcm != null && gcm.length() > 0;
 			boolean bAUto = autoLogin != null && Boolean.parseBoolean(autoLogin);
 			long lastConnection = lastConn != null && lastConn.length() > 0 ? Long.parseLong(lastConn) : 0;
