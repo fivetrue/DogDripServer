@@ -48,9 +48,9 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 		return b;
 	}
 
-	public boolean checkUserEmail(String email){
+	public boolean checkUserEmail(boolean validation, String email){
 		boolean b = true;
-		if(isValidEmail(email)){
+		if(isValidEmail(validation, email)){
 			List<Users> data = getSelectQueryData(null, "email='" + email +"'");
 			if(data != null && data.size() > 0){
 				b = false;
@@ -95,25 +95,33 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 		return user;
 	}
 
-	public static boolean isValidEmail(String email) {
-		boolean err = false;
-		if(email != null && email.length() > 0){
-			String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";   
-			Pattern p = Pattern.compile(regex);
-			Matcher m = p.matcher(email);
-			if(m.matches()) {
-				err = true; 
+	public static boolean isValidEmail(boolean validation, String email) {
+		if(validation){
+			boolean err = false;
+			if(email != null && email.length() > 0){
+				String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";   
+				Pattern p = Pattern.compile(regex);
+				Matcher m = p.matcher(email);
+				if(m.matches()) {
+					err = true; 
+				}
 			}
+			return err;
+		}else{
+			return true;
 		}
-		return err;
 	}
 	
-	public static boolean isValidPassword(String password){
-		boolean err = false;
-		if(password != null && password.length() >= 8 && password.length() <= 16){
-			err = true;
+	public static boolean isValidPassword(boolean validation, String password){
+		if(validation){
+			boolean err = false;
+			if(password != null && password.length() >= 8 && password.length() <= 16){
+				err = true;
+			}
+			return err;
+		}else{
+			return true;
 		}
-		return err;
 	}
 
 }
