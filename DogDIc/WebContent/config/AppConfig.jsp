@@ -4,6 +4,6 @@
 
     
  <%
-	ConfigApiHandler handler = new ConfigApiHandler(request, response);
+	ConfigApiHandler handler = new ConfigApiHandler(getServletContext(), request, response);
  	handler.getAppConfig();
  %>

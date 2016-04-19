@@ -4,6 +4,6 @@
 
     
  <%
-	UserApiHandler handler = new UserApiHandler(request, response);
+	UserApiHandler handler = new UserApiHandler(getServletContext(), request, response);
  	handler.registerGcm();
  %>

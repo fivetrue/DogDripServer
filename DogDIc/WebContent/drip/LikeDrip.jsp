@@ -4,6 +4,6 @@
 
     
  <%
-	DripApiHandler handler = new DripApiHandler(request, response);
+	DripApiHandler handler = new DripApiHandler(getServletContext(), request, response);
  	handler.likeDrip();
  %>
