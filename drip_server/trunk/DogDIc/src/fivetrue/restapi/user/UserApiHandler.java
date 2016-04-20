@@ -50,7 +50,7 @@ public class UserApiHandler extends BaseApiHandler{
 			String email = getParameter(EMAIL);
 			String password = getParameter(PASSWORD);
 			String nickname = getParameter(NICKNAME);
-			boolean validation = Boolean.valueOf(getParameter(EXTERNAL));
+			boolean validation = !Boolean.valueOf(getParameter(EXTERNAL));
 
 			boolean isValidEmail = UsersManager.isValidEmail(validation, email);
 			boolean isValidPassword = UsersManager.isValidPassword(validation, password);
