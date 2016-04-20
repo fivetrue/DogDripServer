@@ -2,6 +2,8 @@ package fivetrue.restapi;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -19,12 +21,15 @@ public abstract class BaseApiHandler {
 	
 	private Gson mGson = null;
 	
+	private SimpleDateFormat mSdf = null;
+	
 	
 	public BaseApiHandler(ServletContext context, HttpServletRequest request, HttpServletResponse response){
 		mContext = context;
 		mRequest = request;
 		mResponse = response;
 		mGson = new Gson();
+		mSdf = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss");
 		try {
 			mRequest.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
@@ -36,18 +41,19 @@ public abstract class BaseApiHandler {
 	protected boolean checkRequestValidation(){
 		String appId = mRequest.getHeader(Constants.KEY_APP_ID);
 		String appKey = mRequest.getHeader(Constants.KEY_APP_KEY);
-		String log = "RemoteHost : " + mRequest.getRemoteHost() + "\n"
-				+"RemoteAddr : " + mRequest.getRemoteAddr()  + "\n"
-				+"===========Headers ===============\n"
-				+ "ContentType : " + mRequest.getContentType() + "\n"
-				+ Constants.KEY_APP_ID + " : " + appId + "\n"
-				+ Constants.KEY_APP_KEY + " : " + appKey + "\n";
-				
-		log += "\n===========Parameters ===============\n";
+		Date date = new Date(System.currentTimeMillis());
+		String log = mSdf.format(date) + " / RemoteAddr : (" + mRequest.getRemoteAddr()  + ") / "
+				+"Headers : (" + "ContentType : " + mRequest.getContentType() + ", "
+				+ Constants.KEY_APP_ID + " : " + appId + ", "
+				+ Constants.KEY_APP_KEY + " : " + appKey + ") / ";
+		log += "Path : (" + mRequest.getServletPath() + ") / "; 		
+		log += "Class : (" + getClass().getName() + ") / "; 		
+		log += "Parameters : (";
 		for(String key : mRequest.getParameterMap().keySet()){
-			log += key + " : " + mRequest.getParameter(key) + "\n";
+			log += key + " : " + mRequest.getParameter(key) + ", ";
 		}
 		mContext.log(log);
+//		System.out.println(log );
 		boolean b = appId != null && appId.equals(Constants.APP_ID) && appKey != null && appKey.equals(Constants.APP_KEY);
 		if(!b){
 			Result result = new Result();
