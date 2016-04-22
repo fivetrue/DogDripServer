@@ -10,7 +10,7 @@ public class Constants {
 	public static final String KEY_APP_ID = "Application-ID";
 	public static final String KEY_APP_KEY = "Application-Key";
 
-	public static final String APP_ID = "com.hany.dogdripproject";
+	public static final String APP_ID = "com.organic.dogdrip";
 	public static final String APP_KEY = "com.fivetrue";
 	
 	public static final String APP_LATEST_VERSION = "39";
