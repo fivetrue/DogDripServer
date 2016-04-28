@@ -28,6 +28,8 @@ public class ConfigApiHandler extends BaseApiHandler{
 			config.appVersionName = Constants.APP_VERSION_NAME;
 			config.appMarketUrl = Constants.APP_MARKET_URL;
 			config.senderId = Constants.GCM.GCM_SENDER_ID;
+			config.cognitoPoolId = Constants.AWS.COGNITO_POOL_ID;
+			config.buketName = Constants.AWS.BUCKET_NAME;
 			result.setResult(config);
 			writeObject(result);
 		}
@@ -40,5 +42,7 @@ public class ConfigApiHandler extends BaseApiHandler{
 		public String appVersionName = null;
 		public String appMarketUrl = null;
 		public String senderId = null;
+		public String cognitoPoolId = null;
+	    public String buketName = null;
 	}
 }
