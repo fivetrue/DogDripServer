@@ -27,6 +27,7 @@ public class DripApiHandler extends BaseApiHandler{
 	public static final String DRIP = "drip";
 	public static final String AUTHOR = "author";
 	public static final String USER = "user";
+	public static final String IMAGE_URL = "imageUrl";
 
 	public static final int ERROR_CODE_INVALID_AUTHOR = 1000;
 	public static final int ERROR_CODE_DUPLICATED_DRIP = 1001;
@@ -144,11 +145,13 @@ public class DripApiHandler extends BaseApiHandler{
 		if(checkRequestValidation()){
 			String drip = getParameter(DRIP);
 			String author = getParameter(AUTHOR);
+			String imageUrl = getParameter(IMAGE_URL);
 			
 			Result result = new Result();
 			
 			boolean isValidDrip = drip != null && drip.length() > 0;
 			boolean isValidAuthor = author != null && author.length() > 0;
+			boolean isValidImageUrl = imageUrl != null && imageUrl.length() > 0;
 			
 			if(isValidDrip && isValidAuthor){
 				
@@ -165,6 +168,9 @@ public class DripApiHandler extends BaseApiHandler{
 						drips.setCreatedate(System.currentTimeMillis());
 						drips.setDrip(drip);
 						drips.setAuthor(author);
+						if(isValidImageUrl){
+							drips.setImageurl(imageUrl);
+						}
 						drips.setHeartcount(0);
 						DBMessage dbMsg = DripsManager.getInstance().insertObject(drips);
 						if(dbMsg.getRow() > 0){
