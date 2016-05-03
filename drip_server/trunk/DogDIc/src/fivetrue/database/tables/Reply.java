@@ -4,13 +4,12 @@ import com.fivetrue.db.DatabaseObject;
 import com.fivetrue.db.annotation.AutoIncrement;
 import com.fivetrue.db.annotation.PrimaryKey;
 
-public class LikeDrips extends DatabaseObject{
+public class Reply extends DatabaseObject{
 	@PrimaryKey
 	@AutoIncrement
 	private int id = 0;
-	
 	private int dripid = 0;
-	private String user = null;
+	private String comment = null;
 	private String author = null;
 	private long createdate = 0;
 	public int getId() {
@@ -19,18 +18,17 @@ public class LikeDrips extends DatabaseObject{
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 	public int getDripid() {
 		return dripid;
 	}
 	public void setDripid(int dripid) {
 		this.dripid = dripid;
 	}
-	public String getUser() {
-		return user;
+	public String getComment() {
+		return comment;
 	}
-	public void setUser(String user) {
-		this.user = user;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	public String getAuthor() {
 		return author;
@@ -46,7 +44,7 @@ public class LikeDrips extends DatabaseObject{
 	}
 	@Override
 	public String toString() {
-		return "LikeDrips [id=" + id + ", dripid=" + dripid + ", user=" + user + ", author=" + author + ", createdate="
-				+ createdate + "]";
+		return "Reply [id=" + id + ", dripid=" + dripid + ", comment=" + comment + ", author=" + author
+				+ ", createdate=" + createdate + "]";
 	}
 }

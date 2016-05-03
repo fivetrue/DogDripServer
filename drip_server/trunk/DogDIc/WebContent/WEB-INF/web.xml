@@ -53,6 +53,37 @@
 		<url-pattern>/drip/check</url-pattern>
 	</servlet-mapping>
 	
+	<!-- Reply 관련 Servlet -->
+	<servlet>
+		<servlet-name>getReply</servlet-name>
+		<jsp-file>/reply/ReadReply.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>getReply</servlet-name>
+		<url-pattern>/reply/get</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>putReply</servlet-name>
+		<jsp-file>/reply/WriteReply.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>putReply</servlet-name>
+		<url-pattern>/reply/put</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>putReply</servlet-name>
+		<jsp-file>/reply/WriteReply.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>deleteReply</servlet-name>
+		<url-pattern>/reply/delete</url-pattern>
+	</servlet-mapping>
+	
 	
 	<!-- User 관련 Servlet -->
 	<servlet>
