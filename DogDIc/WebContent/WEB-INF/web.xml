@@ -75,8 +75,8 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>putReply</servlet-name>
-		<jsp-file>/reply/WriteReply.jsp</jsp-file>
+		<servlet-name>deleteReply</servlet-name>
+		<jsp-file>/reply/DeleteReply.jsp</jsp-file>
 	</servlet>
 	
 	<servlet-mapping>
