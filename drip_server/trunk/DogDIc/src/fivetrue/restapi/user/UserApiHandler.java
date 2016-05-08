@@ -64,6 +64,8 @@ public class UserApiHandler extends BaseApiHandler{
 					result.setErrorCode(ERROR_CODE_DUPLICATED_EMAIL);
 					result.setMessage("중복된 이메일 입니다.");
 					result.makeResponseTime();
+					users.setPassword(null);
+					users.setGcm(null);
 					result.setResult(users);
 					writeObject(result);
 					return;
