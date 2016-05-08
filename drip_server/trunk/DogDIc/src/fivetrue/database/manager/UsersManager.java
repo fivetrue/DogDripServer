@@ -48,15 +48,15 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 		return b;
 	}
 
-	public boolean checkUserEmail(boolean validation, String email){
-		boolean b = true;
+	public Users checkUserEmail(boolean validation, String email){
+		Users users = null;
 		if(isValidEmail(validation, email)){
 			List<Users> data = getSelectQueryData(null, "email='" + email +"'");
 			if(data != null && data.size() > 0){
-				b = false;
+				users = data.get(0);
 			}
 		}
-		return b;
+		return users;
 	}
 	
 	public boolean checkUserNickname(String nickname){

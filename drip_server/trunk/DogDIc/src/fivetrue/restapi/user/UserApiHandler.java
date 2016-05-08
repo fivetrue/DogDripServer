@@ -59,11 +59,12 @@ public class UserApiHandler extends BaseApiHandler{
 			Result result = new Result();
 
 			if(isValidEmail && isValidPassword && isValidNickname){
-				boolean checkEmail = UsersManager.getInstance().checkUserEmail(validation, email);
-				if(!checkEmail){
+				Users users = UsersManager.getInstance().checkUserEmail(validation, email);
+				if(users != null){
 					result.setErrorCode(ERROR_CODE_DUPLICATED_EMAIL);
 					result.setMessage("중복된 이메일 입니다.");
 					result.makeResponseTime();
+					result.setResult(users);
 					writeObject(result);
 					return;
 				}
