@@ -129,7 +129,7 @@ public class UserApiHandler extends BaseApiHandler{
 			String gcm = getParameter(GCM);
 			String autoLogin = getParameter(AUTO_LOGIN);
 			String lastConn = getParameter(LAST_CONN);
-			boolean validation = Boolean.valueOf(getParameter(EXTERNAL));
+			boolean validation = !Boolean.valueOf(getParameter(EXTERNAL));
 
 			boolean isValidEmail = UsersManager.isValidEmail(validation, email);
 			boolean isValidPassword = UsersManager.isValidPassword(validation, password);
