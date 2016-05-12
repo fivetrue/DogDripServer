@@ -133,6 +133,11 @@ public class DripApiHandler extends BaseApiHandler{
 			String author = getParameter(AUTHOR);
 			
 			List<Drips> drips = DripsManager.getInstance().getDrips(id, author, drip);
+			
+			for(Drips d : drips){
+				Users.removePrivateInfo(d.getUser());
+			}
+			
 			Result result = new Result();
 			result.setErrorCode(Result.ERROR_CODE_OK);
 			result.setResult(drips);
