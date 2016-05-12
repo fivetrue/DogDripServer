@@ -20,6 +20,7 @@ import gcm.manager.NotificationManager;
 
 public class ReplyApiHandler extends BaseApiHandler{
 
+	public static final int MAX_REPLY_COUNT_PER_DRIP = 5;
 
 	public static final String ID = "id";
 	public static final String AUTHOR = "author";
@@ -27,9 +28,8 @@ public class ReplyApiHandler extends BaseApiHandler{
 	public static final String COMMENT = "comment";
 
 	public static final int ERROR_CODE_INVALID_AUTHOR = 1000;
-	public static final int ERROR_CODE_DUPLICATED_DRIP = 1001;
 	public static final int ERROR_CODE_INVALID_DRIP = 1002;
-	public static final int ERROR_CODE_ALREAY_LIKE_DRIP = 2000;
+	public static final int ERROR_CODE_MAX_REPLY_USER = 2001;
 
 
 	public ReplyApiHandler(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
@@ -74,18 +74,25 @@ public class ReplyApiHandler extends BaseApiHandler{
 			if(isValidAuthor && isValidDrip && isValidComment){
 				Users authorUser = UsersManager.getInstance().getUser(author);
 				if(authorUser != null){
-					Reply reply = new Reply();
-					reply.setCreatedate(System.currentTimeMillis());
-					reply.setComment(comment);
-					reply.setAuthor(author);
-					DBMessage dbMsg = ReplyManager.getInstance().insertObject(reply);
-					if(dbMsg.getRow() > 0){
-						result.setErrorCode(Result.ERROR_CODE_OK);
-						result.setResult(reply);	
+					List<Reply> replies = ReplyManager.getInstance().getReplyListByDripIdAndAuthor(drip, author);
+					if(replies.size() <= MAX_REPLY_COUNT_PER_DRIP){
+						Reply reply = new Reply();
+						reply.setDripid(Integer.parseInt(drip));
+						reply.setCreatedate(System.currentTimeMillis());
+						reply.setComment(comment);
+						reply.setAuthor(author);
+						DBMessage dbMsg = ReplyManager.getInstance().insertObject(reply);
+						if(dbMsg.getRow() > 0){
+							result.setErrorCode(Result.ERROR_CODE_OK);
+							result.setResult(reply);	
+						}else{
+							result.setErrorCode(Result.ERROR_CODE_DB_ERROR);
+							result.setMessage(dbMsg.getMessage());
+							result.setResult(dbMsg);
+						}
 					}else{
-						result.setErrorCode(Result.ERROR_CODE_DB_ERROR);
-						result.setMessage(dbMsg.getMessage());
-						result.setResult(dbMsg);
+						result.setErrorCode(ERROR_CODE_MAX_REPLY_USER);
+						result.setMessage("한 개의 드립에 5개의 댓글을 달 수 있습니다.");
 					}
 				}else{
 					result.setErrorCode(ERROR_CODE_INVALID_AUTHOR);
