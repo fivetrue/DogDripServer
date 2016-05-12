@@ -72,6 +72,14 @@ public class Users extends DatabaseObject{
 	public void setGcm(String gcm) {
 		this.gcm = gcm;
 	}
+	
+	public static void removePrivateInfo(Users u){
+		if(u != null){
+			u.setPassword(null);
+			u.setGcm(null);
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "Users [email=" + email + ", nickname=" + nickname + ", password=" + password + ", createdate="

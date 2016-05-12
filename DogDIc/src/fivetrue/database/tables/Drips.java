@@ -2,6 +2,8 @@ package fivetrue.database.tables;
 
 import com.fivetrue.db.DatabaseObject;
 import com.fivetrue.db.annotation.AutoIncrement;
+import com.fivetrue.db.annotation.ForeignKey;
+import com.fivetrue.db.annotation.MemberVariable;
 import com.fivetrue.db.annotation.PrimaryKey;
 
 public class Drips extends DatabaseObject{
@@ -11,9 +13,15 @@ public class Drips extends DatabaseObject{
 	private int id = 0;
 	private String drip = null;
 	private String imageurl = null;
+	
+	@ForeignKey(Users.class)
 	private String author = null;
 	private long createdate = 0;
 	private int heartcount = 0;
+	
+	@MemberVariable
+	private Users user = null;
+	
 	public int getId() {
 		return id;
 	}
@@ -51,9 +59,17 @@ public class Drips extends DatabaseObject{
 	public void setHeartcount(int heartcount) {
 		this.heartcount = heartcount;
 	}
+	
+	public Users getUser() {
+		return user;
+	}
+	public void setUser(Users user) {
+		this.user = user;
+	}
+	
 	@Override
 	public String toString() {
 		return "Drips [id=" + id + ", drip=" + drip + ", imageurl=" + imageurl + ", author=" + author + ", createdate="
-				+ createdate + ", heartcount=" + heartcount + "]";
+				+ createdate + ", heartcount=" + heartcount + ", user=" + user + "]";
 	}
 }
