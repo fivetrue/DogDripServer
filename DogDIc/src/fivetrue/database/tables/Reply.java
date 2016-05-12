@@ -14,14 +14,11 @@ public class Reply extends DatabaseObject{
 	@ForeignKey(Drips.class)
 	private int dripid = 0;
 	private String comment = null;
-	@ForeignKey(Users.class)
 	private String author = null;
 	private long createdate = 0;
 	
 	@MemberVariable
 	private Drips drip = null;
-	@MemberVariable
-	private Users user = null;
 	
 	public int getId() {
 		return id;
@@ -62,16 +59,9 @@ public class Reply extends DatabaseObject{
 		this.drip = drip;
 	}
 	
-	public Users getUser() {
-		return user;
-	}
-	public void setUser(Users user) {
-		this.user = user;
-	}
-	
 	@Override
 	public String toString() {
 		return "Reply [id=" + id + ", dripid=" + dripid + ", comment=" + comment + ", author=" + author
-				+ ", createdate=" + createdate + ", drip=" + drip + ", user=" + user + "]";
+				+ ", createdate=" + createdate + ", drip=" + drip + "]";
 	}
 }

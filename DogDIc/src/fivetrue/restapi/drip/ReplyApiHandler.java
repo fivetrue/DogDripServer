@@ -53,7 +53,7 @@ public class ReplyApiHandler extends BaseApiHandler{
 			if(isValidAuthor || isValidDripId || isValidId){
 				List<Reply> replyList = ReplyManager.getInstance().getReplyList(id, author, dripId);
 				for(Reply r : replyList){
-					Users.removePrivateInfo(r.getUser());
+					Users.removePrivateInfo(r.getDrip().getUser());
 				}
 				result.setErrorCode(Result.ERROR_CODE_OK);
 				result.setResult(replyList);
@@ -89,8 +89,7 @@ public class ReplyApiHandler extends BaseApiHandler{
 							reply.setComment(comment);
 							reply.setAuthor(author);
 							reply.setDrip(drip);
-							reply.setUser(authorUser);
-							Users.removePrivateInfo(authorUser);
+							Users.removePrivateInfo(drip.getUser());
 							DBMessage dbMsg = ReplyManager.getInstance().insertObject(reply);
 							if(dbMsg.getRow() > 0){
 								result.setErrorCode(Result.ERROR_CODE_OK);
