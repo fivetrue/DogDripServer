@@ -41,6 +41,11 @@ public class ReplyManager extends DatabaseManagerImpl<Reply>{
 		return getReplyList(null, null, id);
 	}
 	
+	public List<Reply> getReplyListByDripIdAndAuthor(String id, String author){
+		return getReplyList(null, author, id);
+	}
+	
+	
 	public List<Reply> getReplyList(String id, String author, String dripId){
 		String where = null;
 		if(id != null && id.length() > 0){
