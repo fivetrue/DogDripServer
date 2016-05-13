@@ -76,8 +76,8 @@ public class DripApiHandler extends BaseApiHandler{
 					/**
 					 * 이미 좋아요 드립인지 확인 한다.
 					 */
-					List<LikeDrips> existLike = LikeDripsManager.getInstance().getDrips(targetDrip.getId() + ""
-							, targetDrip.getAuthor(), user);
+					List<LikeDrips> existLike = LikeDripsManager.getInstance().getDrips(targetDrip.getDripid() + ""
+							, targetDrip.getUserid(), user);
 					if(existLike != null && existLike.size() > 0){
 						/**
 						 * 이미 좋아요 
@@ -89,20 +89,19 @@ public class DripApiHandler extends BaseApiHandler{
 						 * like추가.
 						 */
 						LikeDrips ld = new LikeDrips();
-						ld.setAuthor(targetDrip.getAuthor());
-						ld.setId(targetDrip.getId());
-						ld.setUser(user);
-						ld.setCreatedate(System.currentTimeMillis());
+						ld.setUserid(targetDrip.getUserid());
+						ld.setDripid(targetDrip.getDripid());
+						ld.setLikedate(System.currentTimeMillis());
 						DBMessage msg = LikeDripsManager.getInstance().insertObject(ld);
 						if(msg != null && msg.getRow() > 0){
 							/**
 							 * 추가완료 후 드립 작성자에게 포인트 증가.
 							 */
-							Users author = UsersManager.getInstance().getUser(targetDrip.getAuthor());
+							Users author = UsersManager.getInstance().getUser(targetDrip.getUserid());
 							if(author != null){
 								author.setPoint(author.getPoint() + 1);
 								UsersManager.getInstance().updateObject(author);
-								Gcm gcm = GcmManager.getInstance().getGcmByEmail(author.getEmail());
+								Gcm gcm = GcmManager.getInstance().getGcmByEmail(author.getUserid());
 								if(gcm != null){
 									NotificationManager.getInstance().sendLikeNotification(targetDrip, gcm.getGcm());
 								}
@@ -172,9 +171,9 @@ public class DripApiHandler extends BaseApiHandler{
 						Drips drips = new Drips();
 						drips.setCreatedate(System.currentTimeMillis());
 						drips.setDrip(drip);
-						drips.setAuthor(author);
+						drips.setUserid(author);
 						if(isValidImageUrl){
-							drips.setImageurl(imageUrl);
+							drips.setDripimage(imageUrl);
 						}
 						drips.setHeartcount(0);
 						DBMessage dbMsg = DripsManager.getInstance().insertObject(drips);

@@ -9,59 +9,92 @@ import com.fivetrue.db.annotation.PrimaryKey;
 public class Reply extends DatabaseObject{
 	@PrimaryKey
 	@AutoIncrement
-	private int id = 0;
+	private int replyid = -1;
 	
 	@ForeignKey(Drips.class)
-	private int dripid = 0;
+	private int dripid = -1;
+	
 	private String comment = null;
-	private String author = null;
-	private long createdate = 0;
+	private String userid = null;
+	private long replydate = 0;
 	
 	@MemberVariable
 	private Drips drip = null;
 	
-	public int getId() {
-		return id;
+	
+	public int getReplyid() {
+		return replyid;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+
+
+	public void setReplyid(int replyid) {
+		this.replyid = replyid;
 	}
+
+
+
 	public int getDripid() {
 		return dripid;
 	}
+
+
+
 	public void setDripid(int dripid) {
 		this.dripid = dripid;
 	}
+
+
+
 	public String getComment() {
 		return comment;
 	}
+
+
+
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public String getAuthor() {
-		return author;
+
+
+
+	public String getUserid() {
+		return userid;
 	}
-	public void setAuthor(String author) {
-		this.author = author;
+
+
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
-	public long getCreatedate() {
-		return createdate;
+
+
+
+	public long getReplydate() {
+		return replydate;
 	}
-	public void setCreatedate(long createdate) {
-		this.createdate = createdate;
+
+
+
+	public void setReplydate(long replydate) {
+		this.replydate = replydate;
 	}
-	
+
+
+
 	public Drips getDrip() {
 		return drip;
 	}
-	
+
+
+
 	public void setDrip(Drips drip) {
 		this.drip = drip;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Reply [id=" + id + ", dripid=" + dripid + ", comment=" + comment + ", author=" + author
-				+ ", createdate=" + createdate + ", drip=" + drip + "]";
+		return "Reply [replyid=" + replyid + ", dripid=" + dripid + ", comment=" + comment + ", userid=" + userid
+				+ ", replydate=" + replydate + ", drip=" + drip + "]";
 	}
 }

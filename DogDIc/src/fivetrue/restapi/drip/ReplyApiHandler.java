@@ -85,9 +85,9 @@ public class ReplyApiHandler extends BaseApiHandler{
 						if(replies.size() <= MAX_REPLY_COUNT_PER_DRIP){
 							Reply reply = new Reply();
 							reply.setDripid(Integer.parseInt(dripId));
-							reply.setCreatedate(System.currentTimeMillis());
+							reply.setReplydate(System.currentTimeMillis());
 							reply.setComment(comment);
-							reply.setAuthor(author);
+							reply.setUserid(author);
 							reply.setDrip(drip);
 							Users.removePrivateInfo(drip.getUser());
 							DBMessage dbMsg = ReplyManager.getInstance().insertObject(reply);
@@ -124,7 +124,7 @@ public class ReplyApiHandler extends BaseApiHandler{
 			String id = getParameter(ID);
 			Result result = new Result();
 			Reply reply = new Reply();
-			reply.setId(Integer.valueOf(id));
+			reply.setReplyid(Integer.valueOf(id));
 			DBMessage dbMsg = ReplyManager.getInstance().removeObject(reply);
 			if(dbMsg.getRow() > 0){
 				result.setErrorCode(Result.ERROR_CODE_OK);
