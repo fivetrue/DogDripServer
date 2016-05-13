@@ -33,7 +33,7 @@ public class GcmManager extends DatabaseManagerImpl<Gcm>{
 	
 	public boolean isValidGcm(String gcm){
 		boolean b = false;
-		List<Gcm> data = getSelectQueryData(null, "gcm='" + gcm +"'");
+		List<Gcm> data = getSelectQueryData( "gcm='" + gcm +"'");
 		if(data != null && data.size() > 0){
 			b = true;
 		}
@@ -42,7 +42,7 @@ public class GcmManager extends DatabaseManagerImpl<Gcm>{
 	
 	public Gcm getGcmByEmail(String email){
 		Gcm gcm = null;
-		List<Gcm> data = getSelectQueryData(null, "email='" + email +"'");
+		List<Gcm> data = getSelectQueryData("email='" + email +"'");
 		if(data != null && data.size() > 0){
 			gcm = data.get(0);
 		}
@@ -51,7 +51,7 @@ public class GcmManager extends DatabaseManagerImpl<Gcm>{
 	
 	public Gcm getGcmByGcm(String id){
 		Gcm gcm = null;
-		List<Gcm> data = getSelectQueryData(null, "gcm='" + id +"'");
+		List<Gcm> data = getSelectQueryData( "gcm='" + id +"'");
 		if(data != null && data.size() > 0){
 			gcm = data.get(0);
 		}

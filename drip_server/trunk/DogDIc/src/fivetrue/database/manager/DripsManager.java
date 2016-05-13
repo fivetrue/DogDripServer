@@ -72,13 +72,13 @@ public class DripsManager extends DatabaseManagerImpl<Drips>{
 			where += " drips.drip='" + drip + "'";
 		}
 		
-		return getSelectQueryData(null, where);
+		return getSelectQueryData(where);
 	}
 	
 	public boolean checkDrip(String drip){
 		boolean check = true;
 		if(drip != null && drip.length() > 0){
-			List<Drips> data = getSelectQueryData(null, "drips.drip='" + drip +"'");
+			List<Drips> data = getSelectQueryData("drips.drip='" + drip +"'");
 			if(data != null && data.size() > 0){
 				check = false;
 			}
