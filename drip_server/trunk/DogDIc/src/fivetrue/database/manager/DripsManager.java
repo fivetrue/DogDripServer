@@ -51,7 +51,7 @@ public class DripsManager extends DatabaseManagerImpl<Drips>{
 	public List<Drips> getDrips(String id, String author, String drip){
 		String where = null;
 		if(id != null && id.length() > 0){
-			where = "id=" + id;
+			where = "dripid=" + id;
 		}
 		
 		if(author != null && author.length() > 0){
@@ -60,7 +60,7 @@ public class DripsManager extends DatabaseManagerImpl<Drips>{
 			}else{
 				where = "";
 			}
-			where += " author='" + author + "'";
+			where += " userid='" + author + "'";
 		}
 		
 		if(drip != null && drip.length() > 0){

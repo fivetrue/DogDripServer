@@ -30,19 +30,19 @@ public class LikeDripsManager extends DatabaseManagerImpl<LikeDrips>{
 		return LikeDrips.class;
 	}
 	
-	public List<LikeDrips> getDrips(String id, String author, String user){
+	public List<LikeDrips> getDrips(String id, String dripid, String user){
 		String where = null;
 		if(id != null && id.length() > 0){
-			where = "id=" + id;
+			where = "likeid=" + id;
 		}
 		
-		if(author != null && author.length() > 0){
+		if(dripid != null && dripid.length() > 0){
 			if(where != null && where.length() > 0){
 				where += " and";
 			}else{
 				where = "";
 			}
-			where += " author='" + author + "'";
+			where += " dripid='" + dripid + "'";
 		}
 		
 		if(user != null && user.length() > 0){
