@@ -2,15 +2,15 @@ use drip;
 
 
 CREATE TABLE `drip`.`users` (
-  `email` VARCHAR(45) NOT NULL,
+  `userid` VARCHAR(45) NOT NULL,
   `nickname` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `imageurl` VARCHAR(100) NOT NULL,
+  `userimage` VARCHAR(100) NOT NULL,
   `gcm` VARCHAR(300) NOT NULL,
-  `createdate` BIGINT(12) NULL,
+  `joindate` BIGINT(12) NULL,
   `lastconn` BIGINT(12) NULL,
   `point` INT NULL,
-  PRIMARY KEY (`email`));
+  PRIMARY KEY (`userid`));
 
  
 insert into users (email,nickname,password,imageurl,createdate,lastconn,point,gcm) 

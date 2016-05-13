@@ -1,52 +1,83 @@
 package fivetrue.database.tables;
 
+import org.apache.catalina.User;
+
 import com.fivetrue.db.DatabaseObject;
 import com.fivetrue.db.annotation.AutoIncrement;
+import com.fivetrue.db.annotation.ForeignKey;
+import com.fivetrue.db.annotation.MemberVariable;
 import com.fivetrue.db.annotation.PrimaryKey;
 
 public class LikeDrips extends DatabaseObject{
 	@PrimaryKey
 	@AutoIncrement
-	private int id = 0;
+	private int likeid = 0;
 	
+	@ForeignKey(Drips.class)
 	private int dripid = 0;
-	private String user = null;
-	private String author = null;
-	private long createdate = 0;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	
+	@ForeignKey(User.class)
+	private String userid = null;
+	
+	private long likedate = 0;
+	
+	@MemberVariable
+	private Drips drip = null;
+	
+	private Users likeUser = null;
+
+	public int getLikeid() {
+		return likeid;
+	}
+
+	public void setLikeid(int likeid) {
+		this.likeid = likeid;
+	}
+
 	public int getDripid() {
 		return dripid;
 	}
+
 	public void setDripid(int dripid) {
 		this.dripid = dripid;
 	}
-	public String getUser() {
-		return user;
+
+	public String getUserid() {
+		return userid;
 	}
-	public void setUser(String user) {
-		this.user = user;
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
-	public String getAuthor() {
-		return author;
+
+	public long getLikedate() {
+		return likedate;
 	}
-	public void setAuthor(String author) {
-		this.author = author;
+
+	public void setLikedate(long likedate) {
+		this.likedate = likedate;
 	}
-	public long getCreatedate() {
-		return createdate;
+
+	public Drips getDrip() {
+		return drip;
 	}
-	public void setCreatedate(long createdate) {
-		this.createdate = createdate;
+
+	public void setDrip(Drips drip) {
+		this.drip = drip;
 	}
+
+	public Users getLikeUser() {
+		return likeUser;
+	}
+
+	public void setLikeUser(Users likeUser) {
+		this.likeUser = likeUser;
+	}
+
 	@Override
 	public String toString() {
-		return "LikeDrips [id=" + id + ", dripid=" + dripid + ", user=" + user + ", author=" + author + ", createdate="
-				+ createdate + "]";
+		return "LikeDrips [likeid=" + likeid + ", dripid=" + dripid + ", userid=" + userid + ", likedate=" + likedate
+				+ ", drip=" + drip + ", likeUser=" + likeUser + "]";
 	}
+	
 }

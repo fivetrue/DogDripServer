@@ -10,66 +10,109 @@ public class Drips extends DatabaseObject{
 	
 	@PrimaryKey
 	@AutoIncrement
-	private int id = 0;
+	private int dripid = -1;
 	private String drip = null;
-	private String imageurl = null;
+	private String dripimage = null;
 	
 	@ForeignKey(Users.class)
-	private String author = null;
+	private String userid = null;
+	
 	private long createdate = 0;
 	private int heartcount = 0;
+	
 	
 	@MemberVariable
 	private Users user = null;
 	
-	public int getId() {
-		return id;
+	
+	
+	public int getDripid() {
+		return dripid;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+
+
+	public void setDripid(int dripid) {
+		this.dripid = dripid;
 	}
+
+
+
 	public String getDrip() {
 		return drip;
 	}
+
+
+
 	public void setDrip(String drip) {
 		this.drip = drip;
 	}
-	
-	public String getImageurl() {
-		return imageurl;
+
+
+
+	public String getDripimage() {
+		return dripimage;
 	}
-	public void setImageurl(String imageurl) {
-		this.imageurl = imageurl;
+
+
+
+	public void setDripimage(String dripimage) {
+		this.dripimage = dripimage;
 	}
-	public String getAuthor() {
-		return author;
+
+
+
+	public String getUserid() {
+		return userid;
 	}
-	public void setAuthor(String author) {
-		this.author = author;
+
+
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
+
+
+
 	public long getCreatedate() {
 		return createdate;
 	}
+
+
+
 	public void setCreatedate(long createdate) {
 		this.createdate = createdate;
 	}
+
+
+
 	public int getHeartcount() {
 		return heartcount;
 	}
+
+
+
 	public void setHeartcount(int heartcount) {
 		this.heartcount = heartcount;
 	}
-	
+
+
+
 	public Users getUser() {
 		return user;
 	}
+
+
+
 	public void setUser(Users user) {
 		this.user = user;
 	}
-	
+
+
+
 	@Override
 	public String toString() {
-		return "Drips [id=" + id + ", drip=" + drip + ", imageurl=" + imageurl + ", author=" + author + ", createdate="
-				+ createdate + ", heartcount=" + heartcount + ", user=" + user + "]";
+		return "Drips [dripid=" + dripid + ", drip=" + drip + ", dripimage=" + dripimage + ", userid=" + userid
+				+ ", createdate=" + createdate + ", heartcount=" + heartcount + ", user=" + user + "]";
 	}
 }

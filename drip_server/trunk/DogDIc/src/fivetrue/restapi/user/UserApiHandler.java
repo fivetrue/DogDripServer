@@ -81,11 +81,11 @@ public class UserApiHandler extends BaseApiHandler{
 				}
 
 				Users user = new Users();
-				user.setCreatedate(System.currentTimeMillis());
-				user.setEmail(email);
+				user.setJoindate(System.currentTimeMillis());
+				user.setUserid(email);
 				user.setNickname(nickname);
 				user.setPassword(password);
-				user.setImageurl(Constants.DEFAULT_USER_IMAGE_THUNBNAIL);
+				user.setUserimage(Constants.DEFAULT_USER_IMAGE_THUNBNAIL);
 				user.setPoint(0);
 				DBMessage dbMsg = UsersManager.getInstance().insertObject(user);
 
@@ -176,7 +176,7 @@ public class UserApiHandler extends BaseApiHandler{
 
 							Gcm gcmInfo = GcmManager.getInstance().getGcmByGcm(gcm);
 							if(gcmInfo != null){
-								gcmInfo.setEmail(email);
+								gcmInfo.setUserid(email);
 								GcmManager.getInstance().updateObject(gcmInfo);
 							}
 						}else{
@@ -236,7 +236,7 @@ public class UserApiHandler extends BaseApiHandler{
 
 						Gcm gcmInfo = GcmManager.getInstance().getGcmByGcm(gcm);
 						if(gcmInfo != null){
-							gcmInfo.setEmail(email);
+							gcmInfo.setUserid(email);
 							GcmManager.getInstance().updateObject(gcmInfo);
 						}
 					}else{

@@ -41,7 +41,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	
 	public boolean isValidUser(String email){
 		boolean b = false;
-		List<Users> data = getSelectQueryData("email='" + email +"'");
+		List<Users> data = getSelectQueryData(null, "email='" + email +"'");
 		if(data != null && data.size() > 0){
 			b = true;
 		}
@@ -51,7 +51,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	public Users checkUserEmail(boolean validation, String email){
 		Users users = null;
 		if(isValidEmail(validation, email)){
-			List<Users> data = getSelectQueryData("email='" + email +"'");
+			List<Users> data = getSelectQueryData(null, "email='" + email +"'");
 			if(data != null && data.size() > 0){
 				users = data.get(0);
 			}
@@ -62,7 +62,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	public boolean checkUserNickname(String nickname){
 		boolean b = true;
 		if(nickname != null && nickname.length() > 0){
-			List<Users> data = getSelectQueryData("nickname='" + nickname +"'");
+			List<Users> data = getSelectQueryData(null, "nickname='" + nickname +"'");
 			if(data != null && data.size() > 0){
 				b = false;
 			}
@@ -76,7 +76,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 		Users user = null;
 		if(email != null && password != null){
 			
-			List<Users> data = getSelectQueryData("email='" + email +"' and password=password('" + password +"')");
+			List<Users> data = getSelectQueryData(null, "email='" + email +"' and password=password('" + password +"')");
 			if(data != null && data.size() > 0){
 				user = data.get(0);
 			}
@@ -87,7 +87,7 @@ public class UsersManager extends DatabaseManagerImpl<Users>{
 	public Users getUser(String email){
 		Users user = null;
 		if(email != null){
-			List<Users> data = getSelectQueryData("email='" + email +"'");
+			List<Users> data = getSelectQueryData(null, "email='" + email +"'");
 			if(data != null && data.size() > 0){
 				user = data.get(0);
 			}

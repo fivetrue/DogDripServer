@@ -7,7 +7,7 @@ import com.fivetrue.db.annotation.PrimaryKey;
 public class Users extends DatabaseObject{
 	
 	@PrimaryKey
-	private String email = null;
+	private String userid = null;
 	private String nickname = null;
 
 	@Password
@@ -15,64 +15,76 @@ public class Users extends DatabaseObject{
 	/**
 	 * status는 json 형태의 데이터이다.
 	 */
-	private long createdate = 0;
+	private String userimage = null;
+	private long joindate = 0;
 	private long lastconn = 0;
-	private String imageurl = null;
 	private int point = 0;
 	private String gcm = null;
 	
-	public String getEmail() {
-		return email;
+	public String getUserid() {
+		return userid;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
-	
+
 	public String getNickname() {
 		return nickname;
 	}
+
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public long getCreatedate() {
-		return createdate;
+
+	public String getUserimage() {
+		return userimage;
 	}
-	public void setCreatedate(long createdate) {
-		this.createdate = createdate;
+
+	public void setUserimage(String userimage) {
+		this.userimage = userimage;
 	}
+
+	public long getJoindate() {
+		return joindate;
+	}
+
+	public void setJoindate(long joindate) {
+		this.joindate = joindate;
+	}
+
 	public long getLastconn() {
 		return lastconn;
 	}
+
 	public void setLastconn(long lastconn) {
 		this.lastconn = lastconn;
 	}
+
 	public int getPoint() {
 		return point;
 	}
+
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	
-	public String getImageurl() {
-		return imageurl;
-	}
-	public void setImageurl(String imageurl) {
-		this.imageurl = imageurl;
-	}
-	
+
 	public String getGcm() {
 		return gcm;
 	}
+
 	public void setGcm(String gcm) {
 		this.gcm = gcm;
 	}
-	
+
 	public static void removePrivateInfo(Users u){
 		if(u != null){
 			u.setPassword(null);
@@ -82,8 +94,8 @@ public class Users extends DatabaseObject{
 	
 	@Override
 	public String toString() {
-		return "Users [email=" + email + ", nickname=" + nickname + ", password=" + password + ", createdate="
-				+ createdate + ", lastconn=" + lastconn + ", imageurl=" + imageurl + ", point=" + point + ", gcm=" + gcm
+		return "Users [userid=" + userid + ", nickname=" + nickname + ", password=" + password + ", userimage="
+				+ userimage + ", joindate=" + joindate + ", lastconn=" + lastconn + ", point=" + point + ", gcm=" + gcm
 				+ "]";
 	}
 

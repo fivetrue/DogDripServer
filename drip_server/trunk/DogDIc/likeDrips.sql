@@ -2,11 +2,10 @@ use drip;
 
 
 CREATE TABLE `drip`.`likedrips` (
-  `id` INT,
+  `likeid` INT AUTO_INCREMENT,
   `dripid` INT,
-  `author` VARCHAR(45) NOT NULL,
-  `user` VARCHAR(45) NOT NULL,
-  `createdate` BIGINT(12) NULL);
+  `userid` VARCHAR(45) NOT NULL,
+  `likedate` BIGINT(12) NULL);
 
   
   
