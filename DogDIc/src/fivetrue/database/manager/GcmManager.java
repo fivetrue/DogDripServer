@@ -42,7 +42,7 @@ public class GcmManager extends DatabaseManagerImpl<Gcm>{
 	
 	public Gcm getGcmByEmail(String email){
 		Gcm gcm = null;
-		List<Gcm> data = getSelectQueryData(null, "email='" + email +"'");
+		List<Gcm> data = getSelectQueryData(null, "userid='" + email +"'");
 		if(data != null && data.size() > 0){
 			gcm = data.get(0);
 		}

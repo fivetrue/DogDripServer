@@ -49,7 +49,7 @@ public class ReplyManager extends DatabaseManagerImpl<Reply>{
 	public List<Reply> getReplyList(String id, String author, String dripId){
 		String where = null;
 		if(id != null && id.length() > 0){
-			where = "reply.id=" + id;
+			where = "reply.replyid=" + id;
 		}
 		
 		if(author != null && author.length() > 0){
@@ -58,7 +58,7 @@ public class ReplyManager extends DatabaseManagerImpl<Reply>{
 			}else{
 				where = "";
 			}
-			where += " reply.author='" + author + "'";
+			where += " reply.userid='" + author + "'";
 		}
 		
 		if(dripId != null && dripId.length() > 0){
