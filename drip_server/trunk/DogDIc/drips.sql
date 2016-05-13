@@ -8,7 +8,7 @@ CREATE TABLE `drip`.`drips` (
   `userid` VARCHAR(45) NOT NULL,
   `createdate` BIGINT(12) NULL,
   `heartcount` INT NULL,
-  PRIMARY KEY (`id`));
+  PRIMARY KEY (`dripid`));
 
   
   
