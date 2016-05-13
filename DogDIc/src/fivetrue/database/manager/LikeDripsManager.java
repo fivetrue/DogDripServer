@@ -54,6 +54,6 @@ public class LikeDripsManager extends DatabaseManagerImpl<LikeDrips>{
 			where += " user='" + user + "'";
 		}
 		
-		return getSelectQueryData(null, where);
+		return getSelectQueryData(where);
 	}
 }

@@ -70,7 +70,7 @@ public class ReplyManager extends DatabaseManagerImpl<Reply>{
 			where += " reply.dripid=" + dripId;
 		}
 		
-		return getSelectQueryData(null, where);
+		return getSelectQueryData(where);
 	}
 
 }
